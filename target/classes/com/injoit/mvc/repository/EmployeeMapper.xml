@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.injoit.mvc.repository.EmployeeMapper">
+
+	<insert id="insertEmp" parameterType="employee">
+    <selectKey keyProperty="employeenum" resultType="String" order="BEFORE">
+        SELECT TO_NUMBER(TO_CHAR(SYSDATE, 'YY') || #{departnum} || LPAD(employee_seq.nextval, 4, '0')) AS employeenum FROM DUAL
+    </selectKey>
+    insert into employee (employeenum, pw, name, email, phone, addr1, addr2, birth, departnum, position) values (
+        #{employeenum}, #{pw}, #{name}, #{email}, #{phone}, #{addr1}, #{addr2}, #{birth}, #{departnum}, #{position})
+	</insert>
+	<insert id="createCal">
+		create table ${id}_cal (
+			id varchar2(100) not null,
+			start_reg date not null,
+			end_reg date not null,
+			content varchar2(500) not null,
+			status number default 1
+		)
+	</insert>
+	<insert id="insertauth" parameterType="String">
+		insert into emp_auth values (#{userid}, #{auth})
+	</insert>
+	<select id="confirmid" parameterType="String">
+		select count(*) from employee where id=#{id}
+	</select>
+	<insert id="insertCal" parameterType="calendar">
+		insert into #{id}_cal (id, start_reg, end_reg, content) values (
+			#{id}, #{start_reg}, #{end_reg}, #{content})
+	</insert>
+	<update id="up_Cal" parameterType="calendar">
+		update #{id}_cal set start_reg=#{start_reg}, end_reg=#{end_reg}, content=#{content} where id=#{id}
+	</update>
+	<update id="up_pro">
+		update employee set profile=#{profile} where id=#{id}
+	</update>
+	<update id="up_emp" parameterType="employee">
+		update employee
+		<set>
+			pw=#{pw},
+			name=#{name},
+			email=#{email},
+			phone=#{phone},
+			addr1=#{addr1},
+			addr2=#{addr2},
+			department=#{department},
+			position=#{position}
+		</set> 
+		where id=#{id}
+	</update>
+	<update id="withdraw">
+		update employee set status=0 where id=#{id}
+	</update>
+	<select id="mypage" resultType="employee">
+		select * from employee where id=#{id}
+	</select>
+	<select id="calendar" resultType="calendar">
+		select * from #{id}_cal where id=#{id} and status=1
+	</select>
+	<update id="">
+		update #{id}_cal set  where id=#{id}
+	</update>
+	<select id="profile">
+		select profile from employee where id=#{id}
+	</select>
+	<update id="memout">
+		update employee set status = 0 where id=#{id}
+	</update>
+</mapper>

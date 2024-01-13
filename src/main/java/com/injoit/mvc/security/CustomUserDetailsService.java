@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import com.injoit.mvc.bean.EmployeeDTO;
 import com.injoit.mvc.repository.SecurityMapper;
 
 public class CustomUserDetailsService implements UserDetailsService {
@@ -14,8 +15,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		EmployeeDTO dto = mapper.read(username);	
+		return dto == null ? null : new CustomUser(dto);
 	}
 	
 	
