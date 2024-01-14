@@ -5,25 +5,28 @@ import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+
 import lombok.Data;
 
 @Data
 public class EmployeeDTO {
-//	private int no;	// ½ÃÄö½º
-	private String employeenum; // ¾ÆÀÌµð
-	private String pw; // ºñ¹ø
-	private String name; // ÀÌ¸§
-	private String profile; // ÇÁ·ÎÇÊ ÀÌ¹ÌÁö
-	private String email; // ÀÌ¸ÞÀÏ
-	private String phone; // ÀüÈ­¹øÈ£
-	private String addr1; // ±âº» ÁÖ¼Ò
-	private String addr2; // »ó¼¼ ÁÖ¼Ò
+
+//	private int no;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private String employeenum; // ï¿½ï¿½ï¿½Ìµï¿½
+	private String pw; // ï¿½ï¿½ï¿½
+	private String name; // ï¿½Ì¸ï¿½
+	private String profile; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½
+	private String email; // ï¿½Ì¸ï¿½ï¿½ï¿½
+	private String phone; // ï¿½ï¿½È­ï¿½ï¿½È£
+	private String addr1; // ï¿½âº» ï¿½Ö¼ï¿½
+	private String addr2; // ï¿½ï¿½ ï¿½Ö¼ï¿½
 	@DateTimeFormat(pattern="yyyy-MM-dd")
-	private Date birth; // »ý³â¿ùÀÏ
-	private String departnum; // ºÎ¼­¹øÈ£
+	private Date birth; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private String departnum; // ï¿½Î¼ï¿½ï¿½ï¿½È£
 	@DateTimeFormat(pattern="yyyy-MM-dd")
-	private Date reg; // °¡ÀÔ³¯Â¥
-	private String position; // Á÷±Þ
+	private Date reg; // ï¿½ï¿½ï¿½Ô³ï¿½Â¥
+	private String position; // ï¿½ï¿½ï¿½ï¿½
 	private int status; 
-	private List<AuthDTO> authList; // ±ÇÇÑ
+	private List<AuthDTO> authList; // ï¿½ï¿½ï¿½ï¿½
+
 }
