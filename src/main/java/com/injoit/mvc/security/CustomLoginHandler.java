@@ -15,10 +15,20 @@ public class CustomLoginHandler implements AuthenticationSuccessHandler {
 
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-			Authentication authentication) throws IOException, ServletException {
-		// TODO Auto-generated method stub
-		
+			Authentication auth) throws IOException, ServletException {
+		List<String> roleNames = new ArrayList<>();
+		auth.getAuthorities().forEach(au -> {
+			roleNames.add(au.getAuthority());
+		});
+		String rdir = "/emp/all";
+		if(roleNames.contains("ROLE_ADMIN")) {
+			rdir = "/emp/admin";
+		}else if(roleNames.contains("ROLE_MEMBER")) {
+			rdir = "/emp/worker";
+		}
+		if(request.getSession().getAttribute("url_prior") != null) {
+			rdir = (String)request.getSession().getAttribute("url_prior");
+		}
+		response.sendRedirect(rdir);
 	}
-
-	
 }

@@ -4,5 +4,8 @@
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
   	<typeAliases>
+  		<typeAlias type="com.injoit.mvc.bean.EmployeeDTO" alias="employee"/>
+  		<typeAlias type="com.injoit.mvc.bean.AuthDTO" alias="emp_auth"/>
+  		<typeAlias type="com.injoit.mvc.bean.CalendarDTO" alias="calendar"/>
   	</typeAliases>
 </configuration>
