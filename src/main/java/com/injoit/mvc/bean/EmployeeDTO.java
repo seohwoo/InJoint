@@ -26,4 +26,5 @@ public class EmployeeDTO {
 	private String position; // 직급
 	private int status; 
 	private List<AuthDTO> authList; // 권한
+	private String departname;
 }

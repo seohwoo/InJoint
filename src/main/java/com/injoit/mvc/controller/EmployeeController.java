@@ -86,11 +86,13 @@ public class EmployeeController {
 	}
 	@RequestMapping("/member/calendar")
 	public String calendar() {
-		return "employee/calendar";
+		return "employee/member/calendar";
 	}
 	@RequestMapping("mypage")
 	public String mypage(Principal pri, Model model) {
 		EmployeeDTO dto = service.mypage(pri.getName());
+		String departname = service.departname(dto.getDepartnum());
+		dto.setDepartname(departname);
 		model.addAttribute("my", dto);
 		return "employee/mypage";
 	}
@@ -132,6 +134,10 @@ public class EmployeeController {
 	@RequestMapping("memout")
 	public String memout() {
 		return "employee/memout";
+	}
+	@RequestMapping("/member/vote")
+	public String vote() {
+		return "employee/member/vote";
 	}
 	
 }

@@ -37,7 +37,7 @@
                   </div>
                   <div class="d-flex align-items-center justify-content-between mb-4">
                     <div class="form-check">
-                      <input name="remember-me" class="form-check-input primary" type="checkbox" value="" id="flexCheckChecked">
+                      <input name="remember-me" class="form-check-input primary" type="checkbox" id="flexCheckChecked">
                       <label class="form-check-label text-dark" for="flexCheckChecked">
                         자동 로그인
                       </label>
