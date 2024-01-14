@@ -21,4 +21,5 @@ public interface EmployeeMapper {
 	public List<CalendarDTO> calendar(String id);
 	public String profile(String id);
 	public void memout(String id);
+	public String departname(String departnum);
 }

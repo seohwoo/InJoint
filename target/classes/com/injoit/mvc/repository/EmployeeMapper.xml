@@ -54,7 +54,10 @@
 		update employee set status=0 where id=#{id}
 	</update>
 	<select id="mypage" resultType="employee">
-		select * from employee where id=#{id}
+		select * from employee where employeenum=#{id}
+	</select>
+	<select id="departname">
+		select departname from department where departnum =#{departnum}
 	</select>
 	<select id="calendar" resultType="calendar">
 		select * from #{id}_cal where id=#{id} and status=1

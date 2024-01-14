@@ -18,6 +18,10 @@
         </div>
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+          <div style="display:flex;">
+          <button type="button" style="flex:1; border:none; background-color:#BF3131; color:white; padding: 5px 0;">출근</button>
+          <button type="button" style="flex:1; border:none; background-color:#365486; color:white; padding: 5px 0;">퇴근</button>
+          </div> 
           <ul id="sidebarnav">
             <li class="nav-small-cap">
               <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
@@ -100,7 +104,7 @@
               <span class="hide-menu">EXTRA</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="/emp/calendar" aria-expanded="false">
+              <a class="sidebar-link" href="/emp/member/calendar" aria-expanded="false">
                 <span>
                   <i class="fa fa-calendar"></i> 
                 </span>
@@ -108,27 +112,15 @@
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="./sample-page.html" aria-expanded="false">
+              <a class="sidebar-link" href="/emp/member/vote" aria-expanded="false">
                 <span>
-                  <i class="ti ti-aperture"></i>
+                  <i class="fa fa-pie-chart"></i>
                 </span>
-                <span class="hide-menu">Sample Page</span>
+                <span class="hide-menu">투표</span>
               </a>
             </li>
           </ul>
-          <div class="unlimited-access hide-menu bg-light-primary position-relative mb-7 mt-5 rounded">
-            <div class="d-flex">
-              <div class="unlimited-access-title me-3">
-                <h6 class="fw-semibold fs-4 mb-6 text-dark w-85">Upgrade to pro</h6>
-                <a href="https://adminmart.com/product/modernize-bootstrap-5-admin-template/" target="_blank" class="btn btn-primary fs-2 fw-semibold lh-sm">Buy Pro</a>
-              </div>
-              <div class="unlimited-access-img">
-                <img src="/resources/assets/images/backgrounds/rocket.png" alt="" class="img-fluid">
-              </div>
-            </div>
-          </div>
         </nav>
         <!-- End Sidebar navigation -->
-      </div>
       <!-- End Sidebar scroll-->
     </aside>

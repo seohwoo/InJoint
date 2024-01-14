@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Calendar</title>
+  <title>mypage</title>
   <link rel="shortcut icon" type="image/png" href="/resources/assets/images/logos/favicon.png" />
   <link rel="stylesheet" href="/resources/assets/css/styles.min.css" />
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
@@ -86,13 +86,15 @@
 	        	<hr/>
 	        		<div><i class="fa fa-mobile fa-lg" style="width:15px;"></i>휴대전화<input type="tel" class="bo" value="${my.phone}"/></div>
 	        	<hr/>
-	        		<div><i class="fa fa-birthday-cake" style="width:15px;"></i>생년월일<input type="text" class="bo" value="${my.birth}"/></div>
+	        		<div><i class="fa fa-birthday-cake" style="width:15px;"></i>생년월일<fmt:formatDate value="${my.birth}" pattern="yyyy-MM-dd"/></div>
 	        	<hr/>
 	        		<div><i class="fa fa-envelope" style="width:15px;"></i>주소<input type="email" class="bo" value="${my.addr1} ${my.addr2}"/></div>
 	      	</div>
 	      	<div style="border:1px solid lightgray; border-radius:5px; padding: 12px;">
 	        <h5>직원정보</h5>
-	        		<div><i class="fa fa-mobile fa-lg" style="width:15px;"></i>부서번호<input type="tel" class="bo" value="${my.department}"/></div>
+	        		<div><i class="fa fa-mobile fa-lg" style="width:15px;"></i>부서번호<input type="tel" class="bo" value="${my.departnum}"/></div>
+	        		<hr/>
+	        		<div><i class="fa fa-mobile fa-lg" style="width:15px;"></i>부서명<input type="tel" class="bo" value="${my.departname}"/></div>
 	        		<hr/>
 	        		<div><i class="fa fa-envelope" style="width:15px;"></i>직급<input type="email" class="bo" value="${my.position}"/></div>
 	      	</div>

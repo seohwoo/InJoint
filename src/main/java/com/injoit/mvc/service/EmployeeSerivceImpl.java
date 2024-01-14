@@ -85,4 +85,8 @@ public class EmployeeSerivceImpl implements EmployeeService{
 	public void memout(String id) {
 		mapper.memout(id);
 	}
-}
+	@Override
+	public String departname(String departnum) {
+		return mapper.departname(departnum);
+	}
+} 
