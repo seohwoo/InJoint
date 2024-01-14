@@ -19,8 +19,8 @@
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
           <div style="display:flex;">
-          <button type="button" style="flex:1; border:none; background-color:#BF3131; color:white; padding: 5px 0;">출근</button>
-          <button type="button" style="flex:1; border:none; background-color:#365486; color:white; padding: 5px 0;">퇴근</button>
+          <button type="button" style="flex:1; border:none; background-color:#BF3131; color:white; padding: 5px 0;" onclick="window.location.href='/admin/onWork'">출근</button>
+          <button type="button" style="flex:1; border:none; background-color:#365486; color:white; padding: 5px 0;" onclick="window.location.href='/admin/offWork'">퇴근</button>
           </div> 
           <ul id="sidebarnav">
             <li class="nav-small-cap">

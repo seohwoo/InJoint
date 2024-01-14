@@ -34,10 +34,25 @@ public class AdminController {
 	}
 	
 	@RequestMapping("attendance")
-	public String showAttendance(Model model, Principal pri) {
+	public String showAttendance(Model model, String pageNum, Principal pri) {
+		if(pageNum==null) {
+			pageNum = "1";
+		}
 		EmployeeDTO dto = empService.mypage(pri.getName());
 		model.addAttribute("my", dto);
+		model.addAttribute("pageUrl", "/admin/attendance");
 		return "admin/showAttendance";
+	}
+	
+	@RequestMapping("onWork")
+	public String onWork(Model model, Principal pri) {
+		service.onWorkEmp(model, pri.getName());
+		return "admin/onwork";
+	}
+	@RequestMapping("offWork")
+	public String offWork(Model model, Principal pri) {
+		service.offWorkEmp(model, pri.getName());
+		return "admin/offwork";
 	}
 	
 }

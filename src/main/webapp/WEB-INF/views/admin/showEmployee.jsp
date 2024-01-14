@@ -47,12 +47,13 @@
 					<td>사번</td>
 					<td>입사일</td>
 					<td>연락처</td>
+					<td>비고</td>
 				</tr>
 				<c:forEach var="dto" items="${employeeList}" varStatus="loopStatus">
 					<c:set var="cnt" value="${employeeList.size() - loopStatus.index}" />
 					<tr>
 						<td>${cnt}</td>
-						<td>${dto.departnum}</td>
+						<td>${dto.departname}</td>
 						<td>${dto.position}</td>
 						<td>${dto.name}</td>
 						<td>${dto.employeenum}</td>
@@ -60,6 +61,7 @@
 							<fmt:formatDate value="${dto.reg}" dateStyle="long" type="date"/>
 						</td>
 						<td>${dto.phone}</td>
+						<td></td>
 					</tr>
 				</c:forEach>
 			</table>
@@ -69,4 +71,11 @@
 		</div>
 		</div>
 	</body>
+	<script src="/resources/libs/jquery/dist/jquery.min.js"></script>
+  <script src="/resources/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/resources/js/sidebarmenu.js"></script>
+  <script src="/resources/js/app.min.js"></script>
+  <script src="/resources/libs/apexcharts/dist/apexcharts.min.js"></script>
+  <script src="/resources/libs/simplebar/dist/simplebar.js"></script>
+  <script src="/resources/js/dashboard.js"></script>
 </html>
