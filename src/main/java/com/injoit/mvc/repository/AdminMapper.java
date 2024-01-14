@@ -14,5 +14,8 @@ public interface AdminMapper {
 	public int isOffWork(HashMap<String, String> map);
 	public void onWorkEmp(HashMap<String, String> map);
 	public void offWorkEmp(HashMap<String, String> map);
+	public int empAttendanceCnt(HashMap<String, String> map);
+	public int empOnWorkCnt(HashMap<String, String> map);
+	public List<EmpAttendanceDTO> showEmpAttendance(HashMap<String, String> map);
 	
 }

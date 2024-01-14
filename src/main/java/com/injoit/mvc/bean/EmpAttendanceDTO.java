@@ -8,6 +8,7 @@ import lombok.Data;
 public class EmpAttendanceDTO {
 	
 	private String employeenum;
+	private String name;
 	private Date onwork;
 	private Date offwork;
 	

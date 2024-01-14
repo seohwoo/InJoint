@@ -38,6 +38,7 @@ public class AdminController {
 		if(pageNum==null) {
 			pageNum = "1";
 		}
+		service.findAllEmpAttendance(model, Integer.parseInt(pageNum));
 		EmployeeDTO dto = empService.mypage(pri.getName());
 		model.addAttribute("my", dto);
 		model.addAttribute("pageUrl", "/admin/attendance");

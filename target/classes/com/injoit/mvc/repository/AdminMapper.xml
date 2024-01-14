@@ -40,4 +40,28 @@
 	<update id="offWorkEmp" parameterType="hashmap">
 		update emp_attendance set offwork=sysdate where employeenum=#{employeenum}
 	</update>
+	<select id="empAttendanceCnt" parameterType="hashmap" resultType="int">
+		SELECT count(*) FROM emp_attendance
+        WHERE TRUNC(onwork) = TO_DATE(#{day}, 'YYYY/MM/DD')
+	</select>
+	<select id="empOnWorkCnt" parameterType="hashmap" resultType="int">
+		SELECT count(*) FROM emp_attendance
+        WHERE TRUNC(onwork) = TO_DATE(#{day}, 'YYYY/MM/DD') and offwork is null
+	</select>
+	<select id="showEmpAttendance" parameterType="hashmap" resultType="empAttendance">
+		<![CDATA[
+			SELECT ea.*, e.name
+			FROM (
+			    SELECT emp.*, ROWNUM r
+			    FROM (
+			        SELECT *
+			        FROM emp_attendance
+			        WHERE TRUNC(onwork) = TO_DATE(#{day}, 'YYYY/MM/DD')
+			    ) emp
+			    WHERE ROWNUM <= #{end}
+			) ea
+			JOIN employee e ON ea.employeenum = e.employeenum
+			WHERE ea.r >= #{start}
+		]]>
+	</select>
 </mapper>

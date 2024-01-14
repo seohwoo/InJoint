@@ -90,4 +90,26 @@ public class AdminServiceImpl implements AdminService{
 		model.addAttribute("isOff", isOff);
 	}
 
+	@Override
+	public void findAllEmpAttendance(Model model, int pageNum) {
+		int pageSize = 10;
+		todayInfo(employeeMap);
+		int cnt = mapper.empAttendanceCnt(employeeMap);
+		int empCnt = mapper.employeeCnt();
+		int onWorkCnt = mapper.empOnWorkCnt(employeeMap);
+		List<EmpAttendanceDTO> list = Collections.EMPTY_LIST;
+		if(cnt>0) {
+			page(pageSize, pageNum, cnt, employeeMap);
+			list = mapper.showEmpAttendance(employeeMap);
+		}
+		model.addAttribute("day", employeeMap.get("day"));
+		model.addAttribute("cnt", cnt);
+		model.addAttribute("empCnt", empCnt);
+		model.addAttribute("onWorkCnt", onWorkCnt);
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("maxPageNum", Integer.parseInt(employeeMap.get("maxPageNum")));
+		model.addAttribute("empAttendaceList", list);
+		
+	}
+
 }
