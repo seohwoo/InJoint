@@ -5,26 +5,29 @@ import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+
 import lombok.Data;
 
 @Data
 public class EmployeeDTO {
-//	private int no;	// ½ÃÄö½º
-	private String employeenum; // ¾ÆÀÌµğ
-	private String pw; // ºñ¹ø
-	private String name; // ÀÌ¸§
-	private String profile; // ÇÁ·ÎÇÊ ÀÌ¹ÌÁö
-	private String email; // ÀÌ¸ŞÀÏ
-	private String phone; // ÀüÈ­¹øÈ£
-	private String addr1; // ±âº» ÁÖ¼Ò
-	private String addr2; // »ó¼¼ ÁÖ¼Ò
+
+//	private int no;	// å ì™ì˜™å ì™ì˜™å ì™ì˜™
+	private String employeenum; // å ì™ì˜™å ì‹±ë“¸ì˜™
+	private String pw; // å ì™ì˜™å ï¿½
+	private String name; // å ì‹±ëªŒì˜™
+	private String profile; // å ì™ì˜™å ì™ì˜™å ì™ì˜™ å ì‹±ë±„ì˜™å ì™ì˜™
+	private String email; // å ì‹±ëªŒì˜™å ì™ì˜™
+	private String phone; // å ì™ì˜™í™”å ì™ì˜™í˜¸
+	private String addr1; // å ì©ë³¸ å ìŒì‡½ì˜™
+	private String addr2; // å ì™ì˜™ å ìŒì‡½ì˜™
 	@DateTimeFormat(pattern="yyyy-MM-dd")
-	private Date birth; // »ı³â¿ùÀÏ
-	private String departnum; // ºÎ¼­¹øÈ£
+	private Date birth; // å ì™ì˜™å ì™ì˜™å ì™ì˜™å ï¿½
+	private String departnum; // å ì‹¸ì‡½ì˜™å ì™ì˜™í˜¸
 	@DateTimeFormat(pattern="yyyy-MM-dd")
-	private Date reg; // °¡ÀÔ³¯Â¥
-	private String position; // Á÷±Ş
+	private Date reg; // å ì™ì˜™å ìŒ‰ë†‚ì˜™ì§œ
+	private String position; // å ì™ì˜™å ì™ì˜™
 	private int status; 
-	private List<AuthDTO> authList; // ±ÇÇÑ
+	private List<AuthDTO> authList; // ê¶Œí•œ
 	private String departname;
+
 }

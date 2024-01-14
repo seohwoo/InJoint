@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.injoit.mvc.repository.AdminMapper">
+	<select id="employeeCnt" resultType="int">
+		select count(*) from employee
+	</select>
+	<select id="showAllEmployee" parameterType="hashmap" resultType="com.injoit.mvc.bean.EmployeeDTO">
+		<![CDATA[
+			select * from 
+			(select e.* , rownum r from 
+			(select * from employee) e) 
+			where r >= #{start} and r <= #{end}
+		]]>
+	</select>
+</mapper>
