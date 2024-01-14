@@ -8,9 +8,9 @@
 <aside class="left-sidebar">
       <!-- Sidebar scroll-->
       <div>
-        <div class="brand-logo d-flex align-items-center justify-content-between">
+         <div class="brand-logo d-flex align-items-center justify-content-between">
           <a href="./index.html" class="text-nowrap logo-img">
-            <img src="/resources/assets/images/logos/dark-logo.svg" width="180" alt="" />
+            <div style="font-weight:800; font-size:30px; color:black;"><img style="margin-right:15px;"" src="/resources/images/logos/favicon.png" width="35" alt="" />InJoint</div>
           </a>
           <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
             <i class="ti ti-x fs-8"></i>
@@ -117,6 +117,34 @@
                   <i class="fa fa-pie-chart"></i>
                 </span>
                 <span class="hide-menu">투표</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/emp/member/calendar" aria-expanded="false">
+                <span>
+                  <i class="fa fa-calendar"></i> 
+                </span>
+                <span class="hide-menu">채팅</span>
+              </a>
+            </li>
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+              <span class="hide-menu">ADMIN</span>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/showEmp" aria-expanded="false">
+                <span>
+                  <i class="fa fa-calendar"></i> 
+                </span>
+                <span class="hide-menu">사원관리</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/attendance" aria-expanded="false">
+                <span>
+                  <i class="fa fa-pie-chart"></i>
+                </span>
+                <span class="hide-menu">근태관리</span>
               </a>
             </li>
           </ul>
