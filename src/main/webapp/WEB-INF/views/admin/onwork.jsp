@@ -10,7 +10,8 @@
 		<c:if test="${cnt==0}">
 			 <script> 
 		     	alert("출근😁😁😁");
-		     	history.go(-1);
+		     	var previousPage = document.referrer;
+		     	window.location.href = previousPage;
 		   </script>
 		</c:if>
 		<c:if test="${cnt!=0}">

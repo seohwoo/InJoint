@@ -10,7 +10,8 @@
 		<c:if test="${cnt==1 && isOff==0}">
 			 <script> 
 		     	alert("퇴근😁😁😁");
-		     	history.go(-1);
+		     	var previousPage = document.referrer;
+		     	window.location.href = previousPage;
 		   </script>
 		</c:if>
 		<c:if test="${isOff==1}">

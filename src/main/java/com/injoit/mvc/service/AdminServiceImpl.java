@@ -56,8 +56,8 @@ public class AdminServiceImpl implements AdminService{
 		int pageSize = 10;
 		int cnt = mapper.employeeCnt();
 		List<EmployeeDTO> list = Collections.EMPTY_LIST;
+		page(pageSize, pageNum, cnt, employeeMap);
 		if(cnt>0) {
-			page(pageSize, pageNum, cnt, employeeMap);
 			list = mapper.showAllEmployee(employeeMap);
 		}
 		model.addAttribute("cnt", cnt);
@@ -98,8 +98,8 @@ public class AdminServiceImpl implements AdminService{
 		int empCnt = mapper.employeeCnt();
 		int onWorkCnt = mapper.empOnWorkCnt(employeeMap);
 		List<EmpAttendanceDTO> list = Collections.EMPTY_LIST;
+		page(pageSize, pageNum, cnt, employeeMap);
 		if(cnt>0) {
-			page(pageSize, pageNum, cnt, employeeMap);
 			list = mapper.showEmpAttendance(employeeMap);
 		}
 		model.addAttribute("day", employeeMap.get("day"));
