@@ -34,21 +34,19 @@
 		update #{id}_cal set start_reg=#{start_reg}, end_reg=#{end_reg}, content=#{content} where id=#{id}
 	</update>
 	<update id="up_pro">
-		update employee set profile=#{profile} where id=#{id}
+		update employee set profile=#{profile} where employeenum=#{id}
 	</update>
 	<update id="up_emp" parameterType="employee">
 		update employee
 		<set>
-			pw=#{pw},
 			name=#{name},
 			email=#{email},
 			phone=#{phone},
 			addr1=#{addr1},
 			addr2=#{addr2},
-			department=#{department},
 			position=#{position}
 		</set> 
-		where id=#{id}
+		where employeenum=#{employeenum}
 	</update>
 	<update id="withdraw">
 		update employee set status=0 where id=#{id}
@@ -66,9 +64,47 @@
 		update #{id}_cal set  where id=#{id}
 	</update>
 	<select id="profile">
-		select profile from employee where id=#{id}
+		select profile from employee where employeenum=#{id}
 	</select>
 	<update id="memout">
 		update employee set status = 0 where id=#{id}
 	</update>
+	<!-- 
+	<insert id="vote" parameterType="vote_que">
+		insert into vote_que values 
+			(bote_que_seq.nextval, #{title}, #{enddate}, #{typenum}, #{employeenum}, #{anonymous})
+	</insert>
+	-->
+	<insert id="vote" parameterType="vote_que">
+    <selectKey keyProperty="no" resultType="int" order="BEFORE">
+        SELECT bote_que_seq.nextval AS no FROM DUAL
+    </selectKey>
+    	insert into vote_que values 
+        	(#{no}, #{title}, #{enddate}, #{typenum}, #{employeenum}, #{anonymous})
+	</insert>
+	
+	<insert id="vote_count" parameterType="vote_count">
+		insert into vote_count (num, no, typevalue, img) values 
+			(vote_count_seq.nextval, #{no}, #{typevalue}, #{img})
+	</insert>
+	<resultMap type="vote_que" id="vq">
+		<result column="no" property="no"/>
+		<result column="title" property="title"/>
+		<result column="enddate" property="enddate"/>
+		<result column="typenum" property="typenum"/>
+		<result column="employeenum" property="employeenum"/>
+	</resultMap>
+	<resultMap type="vote_count" id="vc">
+		<result column="num" property="num"/>
+		<result column="no" property="no"/>
+		<result column="typevalue" property="typevalue"/>
+		<result column="img" property="img"/>
+		<collection property="vq" resultMap="vq"/>
+	</resultMap>
+	
+	
+	<select id="vote_que" resultType="vote_count" resultMap="vc">
+		select * from vote_que vq
+			join vote_count vc on vq.no = vc.no order by vc.num asc
+	</select>
 </mapper>
