@@ -9,6 +9,8 @@
   <link rel="stylesheet" href="/resources/css/styles.min.css" />
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   <script src="/resources/js/jquery-3.7.1.min.js"></script> 
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
   <script>
   	function comfirmid(){
   		$.ajax({
@@ -40,6 +42,7 @@
                 <p class="text-center">Your Social Campaigns</p>
                 <form action="/emp/registerPro" method="post">
 				  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                  <!-- 
                   <div class="mb-3">
                     <label for="exampleInputtext1" class="form-label">아이디</label>
                     <div style="display:flex;">
@@ -48,6 +51,8 @@
                   	</div>
                   	<div id="id_chk" style="color:red;"></div>
                   </div>
+                  -->
+                  
                   <div class="mb-4">
                     <label for="exampleInputPassword1" class="form-label">비밀번호</label>
                     <input type="password" name="pw" class="form-control" id="exampleInputPassword1">
@@ -96,7 +101,7 @@
                   <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Sign Up</button>
                   <div class="d-flex align-items-center justify-content-center">
                     <p class="fs-4 mb-0 fw-bold">Already have an Account?</p>
-                    <a class="text-primary fw-bold ms-2" href="/emp/customLogin">Sign In</a>
+                    <a class="text-primary fw-bold ms-2" href="/emp/registerPro">Sign In</a>
                   </div>
                 </form>
               </div>

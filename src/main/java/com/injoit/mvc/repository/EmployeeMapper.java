@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Param;
 
 import com.injoit.mvc.bean.CalendarDTO;
 import com.injoit.mvc.bean.EmployeeDTO;
+import com.injoit.mvc.bean.Vote_countDTO;
+import com.injoit.mvc.bean.Vote_queDTO;
 
 public interface EmployeeMapper {
 	public int insertEmp(EmployeeDTO dto);
@@ -22,4 +24,7 @@ public interface EmployeeMapper {
 	public String profile(String id);
 	public void memout(String id);
 	public String departname(String departnum);
+	public void vote(Vote_queDTO dto);
+	public void vote_count(Vote_countDTO dto);
+	public List<Vote_countDTO> vote_que();
 }

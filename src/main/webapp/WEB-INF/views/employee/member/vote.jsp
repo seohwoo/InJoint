@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>          
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>       
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +10,7 @@
 <title>투표</title>
 <link rel="shortcut icon" type="image/png" href="/resources/assets/images/logos/favicon.png" />
 <link rel="stylesheet" href="/resources/assets/css/styles.min.css" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <style>
@@ -45,10 +47,13 @@
         right: 15px;
         bottom: 15px;
         border: 3px solid #f1f1f1;
-        z-index: 9;
+        z-index: 100;
         overflow-y: auto;
         max-height: 500px;
+        min-height: 500px;
         max-width: 300px;
+        min-width: 300px;
+        background-color: white;
     }
 
     .form-container {
@@ -94,6 +99,25 @@
     .answer{
     	width: 100%;
     }
+    
+    #votingTitle{
+    	width: 100%;
+    	margin-bottom: 30px;
+    }
+    
+    .fileBtn{
+	  background-color:#FF6600;
+	  border-radius: 4px;
+	  color: white;
+	  cursor: pointer;
+    }
+    ol, ul{
+    	padding-left:0 !important;
+    }
+    
+    #btn2{
+    	width: 100%;
+    }
 </style>
 </head>
 <!-- Body Wrapper -->
@@ -126,6 +150,33 @@
         <div class="container-fluid">
             <!-- Row 1 -->
             <div class="row" style="display:flex;">
+            	   <div class="container">
+        <ul class="list-unstyled row">
+            <c:set var="prevNo" value="" />
+            <c:forEach var="vote" items="${vote}">
+                <li class="col-md-3">
+                    <div>${vote.vq.title}</div>
+                    <c:if test="${vote.no eq prevNo}">
+                        <div>${prevTypeValue}</div> <!-- 같은 div에 묶을 부분 -->
+                        <div>${vote.typevalue}</div> <!-- 같은 div에 묶을 부분 -->
+                    </c:if>
+                    <c:if test="${vote.no ne prevNo}">
+                        <div>${vote.typevalue}</div>
+                        <c:if test="${vote.img != null}">
+                            <img src="/resources/img/${vote.img}" style="width:50px;"/>
+                        </c:if>
+                        <div><fmt:formatDate value="${vote.vq.enddate}" pattern="yyyy-MM-dd"/></div>
+                    </c:if>
+                    <c:set var="prevNo" value="${vote.no}" />
+                    <c:set var="prevTypeValue" value="${vote.typevalue}" />
+                    <c:forEach begin="1" end="${vote.vq.typenum}" step="1">
+                        <!-- 추가적인 로직 -->
+                    </c:forEach>
+                </li>
+            </c:forEach>
+        </ul>
+    </div>
+            
             </div>
             <div class="py-6 px-6 text-center">
                 <p class="mb-0 fs-4">Design and Developed by <a href="https://adminmart.com/" target="_blank" class="pe-1 text-primary text-decoration-underline">AdminMart.com</a> Distributed by <a href="https://themewagon.com">ThemeWagon</a></p>
@@ -137,15 +188,26 @@
     </button>
 
     <div class="chat-popup" id="myForm">
-        <form action="/action_page.php" class="form-container">
+        <form action="/emp/member/votePro" method="post"class="form-container" enctype="multipart/form-data">
             <h1>투표 용지</h1>
-
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <label for="msg"><b>제목</b></label>
-            <textarea placeholder="투표 제목" name="msg" id="votingTitle" required></textarea>
-            <ol id="votingItems">
-                <li><input type="text" class="answer" placeholder="항목 입력" required/></li>
+            <input type="text" name="title" id="votingTitle" required/>
+            <ol id="votingItems" style="list-decoration:none;">
+                <li style="display:flex;">
+               		<input style="flex:2;" name="typevalue" type="text" class="answer" placeholder="항목 입력" required/>
+               		<label style="flex:1;" class="fileBtn" for="input-file">
+					  업로드
+					</label>
+					<input name="votefile" type="file" id="input-file" style="display:none;"/> 
+           		</li>
+				<img id="uploadedImage" style="width: 20px; height: 20px;" />
             </ol>
-            <input type="button" id="btn2" value="항목 추가">
+            <input type="button" id="btn2" value="+ 항목 추가">
+            종료날짜<input type="date" name="enddate"/>
+            <input type="text" name="employeenum" value="<sec:authentication property="principal.dto.employeenum"/>">
+            익명 아님<input type="radio" name="anonymous" value="0" checked="checked">
+            익명<input type="radio" name="anonymous" value="1">
             <button type="submit" class="btn">Send</button>
             <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
         </form>
@@ -153,28 +215,46 @@
 </div>
 
 <script>
-    $(document).ready(function () {
-        var votingTitle = $("#votingTitle");
-        var votingItems = $("#votingItems");
+$(document).ready(function () {
+    var votingTitle = $("#votingTitle");
+    var votingItems = $("#votingItems");
+    var inputFile = $("#input-file");
+    var uploadedImage = $("#uploadedImage");
 
-        $("#btn2").click(function () {
-            votingItems.append("<li><input type='text' class='answer' placeholder='항목 입력'/></li>");
-        });
-
-        function openForm() {
-            document.getElementById("myForm").style.display = "block";
-        }
-
-        function closeForm() {
-            document.getElementById("myForm").style.display = "none";
-            votingTitle.val(""); 
-            votingItems.empty();  
-            votingItems.append("<li><input type='text' class='answer' placeholder='항목 입력' required/></li>"); 
-        }
-
-        $(".open-button").click(openForm);
-        $(".cancel").click(closeForm);
+    function openForm() {
+        document.getElementById("myForm").style.display = "block";
+    }
+    $("#btn2").click(function () {
+        votingItems.append(" <li style='display:flex;'><input style='flex:2;' name='typevalue' type='text' class='answer' placeholder='항목 입력'/><label style='flex:1;' class='fileBtn' for='input-file'>업로드</label><input  name='votefile' type='file' id='input-file' style='display:none;'/> </li>"); 
     });
+
+
+    function closeForm() {
+        document.getElementById("myForm").style.display = "none";
+        votingTitle.val("");
+        votingItems.empty();
+        votingItems.append("<li><input type='text' class='answer' name='typevalue' placeholder='항목 입력' required/></li>");
+        // 업로드된 이미지 초기화
+        uploadedImage.attr("src", "");
+        // input 파일 선택 초기화
+        inputFile.val("");
+    }
+
+    // 파일 선택 시 이미지 미리보기
+    inputFile.change(function () {
+        var file = this.files[0];
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                uploadedImage.attr("src", e.target.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    $(".open-button").click(openForm);
+    $(".cancel").click(closeForm);
+});
 </script>
 <script src="/resources/libs/jquery/dist/jquery.min.js"></script>
 <script src="/resources/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

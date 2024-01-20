@@ -11,21 +11,21 @@ import lombok.Data;
 @Data
 public class EmployeeDTO {
 
-//	private int no;	// 占쏙옙占쏙옙占쏙옙
-	private String employeenum; // 占쏙옙占싱듸옙
-	private String pw; // 占쏙옙占�
-	private String name; // 占싱몌옙
-	private String profile; // 占쏙옙占쏙옙占쏙옙 占싱뱄옙占쏙옙
-	private String email; // 占싱몌옙占쏙옙
-	private String phone; // 占쏙옙화占쏙옙호
-	private String addr1; // 占썩본 占쌍쇽옙
-	private String addr2; // 占쏙옙 占쌍쇽옙
+//	private int no;	// 시퀀스
+	private String employeenum; // 아이디
+	private String pw; // 비번
+	private String name; // 이름
+	private String profile; // 프로필 이미지
+	private String email; // 이메일
+	private String phone; // 전화번호
+	private String addr1; // 기본 주소
+	private String addr2; // 상세 주소
 	@DateTimeFormat(pattern="yyyy-MM-dd")
-	private Date birth; // 占쏙옙占쏙옙占쏙옙占�
-	private String departnum; // 占싸쇽옙占쏙옙호
+	private Date birth; // 생년월일
+	private String departnum; // 부서번호
 	@DateTimeFormat(pattern="yyyy-MM-dd")
-	private Date reg; // 占쏙옙占쌉놂옙짜
-	private String position; // 占쏙옙占쏙옙
+	private Date reg; // 가입날짜
+	private String position; // 직급
 	private int status; 
 	private List<AuthDTO> authList; // 권한
 	private String departname;

@@ -2,6 +2,8 @@ package com.injoit.mvc.controller;
 
 import java.io.File;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.injoit.mvc.bean.EmployeeDTO;
+import com.injoit.mvc.bean.Vote_countDTO;
+import com.injoit.mvc.bean.Vote_queDTO;
 import com.injoit.mvc.service.EmployeeService;
 
 
@@ -76,9 +80,10 @@ public class EmployeeController {
 	}
 	//회원가입 
 	@RequestMapping("registerPro")
-	public String registerPro(EmployeeDTO dto) {
-		service.insertEmp(dto);
-		return "redirect:/emp/customLogin";
+	public String registerPro(EmployeeDTO dto, Model model) {
+		int check = service.insertEmp(dto, model);
+		model.addAttribute("check", check);
+		return "employee/registerPro";
 	}
 	@RequestMapping("aa")
 	public String registe() {
@@ -96,16 +101,21 @@ public class EmployeeController {
 		model.addAttribute("my", dto);
 		return "employee/mypage";
 	}
+	@RequestMapping("mypagePro")
+	public String mypagePro(EmployeeDTO dto, Principal pri, ArrayList<MultipartFile> upload) {
+		dto.setEmployeenum(pri.getName());
+		int result = service.up_emp(dto);
+		return "redirect:/emp/mypage";
+	}
 	@RequestMapping("profile")
-	public String profile(HttpServletRequest request, MultipartFile profile, String id) {
+	public String profile(HttpServletRequest request, MultipartFile profile, Principal pri) {
 		String path = request.getServletContext().getRealPath("/resources/profile/");
-		
 		String contentType = profile.getContentType();
 		if(contentType.split("/")[0].equals("image")){
 			String orgName = profile.getOriginalFilename();
 			String ext = orgName.substring(orgName.lastIndexOf("."));
-			File copy = new File(path + id + ext);
-			service.up_pro(id, id+ext);
+			File copy = new File(path + pri.getName() + ext);
+			service.up_pro(pri.getName(), pri.getName()+ext);
 			try {
 				profile.transferTo(copy);
 			}catch(Exception e){
@@ -136,8 +146,25 @@ public class EmployeeController {
 		return "employee/memout";
 	}
 	@RequestMapping("/member/vote")
-	public String vote() {
+	public String vote(Model model) {
+		List<Vote_countDTO> vote = service.vote_que();
+		model.addAttribute("vote", vote);
 		return "employee/member/vote";
+	}
+
+	@RequestMapping("/member/votePro")
+	public String votePro(HttpServletRequest request, String [] typevalue, Vote_countDTO vc, Vote_queDTO vq, ArrayList<MultipartFile> votefile) {
+		int count = 0;
+		for(String t : typevalue) {
+			if(!t.equals("")) {
+				count++;
+			}
+		}
+		String path = request.getServletContext().getRealPath("/resources/img/");
+		vq.setTypenum(count);
+		service.vote_count(vc, votefile, path, vq, typevalue);
+//		dto.setTypeum(1);
+		return "redirect:/emp/member/vote";
 	}
 	
 }
