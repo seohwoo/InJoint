@@ -5,6 +5,7 @@
 <configuration>
   	<typeAliases>
   		<typeAlias type="com.injoit.mvc.bean.EmployeeDTO" alias="employee"/>
+  		<typeAlias type="com.injoit.mvc.bean.EmpAttendanceDTO" alias="empAttendance"/>
   		<typeAlias type="com.injoit.mvc.bean.AuthDTO" alias="emp_auth"/>
   		<typeAlias type="com.injoit.mvc.bean.CalendarDTO" alias="calendar"/>
   		<typeAlias type="com.injoit.mvc.bean.Vote_queDTO" alias="vote_que"/>

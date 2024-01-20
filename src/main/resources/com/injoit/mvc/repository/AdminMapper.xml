@@ -6,12 +6,62 @@
 	<select id="employeeCnt" resultType="int">
 		select count(*) from employee
 	</select>
-	<select id="showAllEmployee" parameterType="hashmap" resultType="com.injoit.mvc.bean.EmployeeDTO">
+	<select id="showAllEmployee" parameterType="hashmap" resultType="employee">
 		<![CDATA[
-			select * from 
-			(select e.* , rownum r from 
-			(select * from employee) e) 
-			where r >= #{start} and r <= #{end}
+			SELECT e.*, d.departname
+			FROM (
+			    SELECT e.*, ROWNUM r
+			    FROM (
+			        SELECT *
+			        FROM employee
+			    ) e
+			    WHERE ROWNUM <= #{end}
+			) e
+			JOIN department d ON e.departnum = d.departnum
+			WHERE e.r >= #{start}
+		]]>
+	</select>
+	<select id="isCommute" parameterType="hashmap" resultType="int">
+		SELECT count(*)
+		FROM emp_attendance
+		WHERE TRUNC(onwork) = TO_DATE(#{day}, 'YYYY/MM/DD')
+  		and employeenum=#{employeenum}
+	</select>
+	<select id="isOffWork" parameterType="hashmap" resultType="int">
+		SELECT count(*)
+		FROM emp_attendance
+		WHERE TRUNC(onwork) = TO_DATE(#{day}, 'YYYY/MM/DD')
+  		and employeenum=#{employeenum} and offwork is not null
+	</select>
+	<insert id="onWorkEmp" parameterType="hashmap">
+		insert into emp_attendance(employeenum, onwork) 
+		values(#{employeenum}, sysdate)
+	</insert>
+	<update id="offWorkEmp" parameterType="hashmap">
+		update emp_attendance set offwork=sysdate where employeenum=#{employeenum}
+	</update>
+	<select id="empAttendanceCnt" parameterType="hashmap" resultType="int">
+		SELECT count(*) FROM emp_attendance
+        WHERE TRUNC(onwork) = TO_DATE(#{day}, 'YYYY/MM/DD')
+	</select>
+	<select id="empOnWorkCnt" parameterType="hashmap" resultType="int">
+		SELECT count(*) FROM emp_attendance
+        WHERE TRUNC(onwork) = TO_DATE(#{day}, 'YYYY/MM/DD') and offwork is null
+	</select>
+	<select id="showEmpAttendance" parameterType="hashmap" resultType="empAttendance">
+		<![CDATA[
+			SELECT ea.*, e.name
+			FROM (
+			    SELECT emp.*, ROWNUM r
+			    FROM (
+			        SELECT *
+			        FROM emp_attendance
+			        WHERE TRUNC(onwork) = TO_DATE(#{day}, 'YYYY/MM/DD')
+			    ) emp
+			    WHERE ROWNUM <= #{end}
+			) ea
+			JOIN employee e ON ea.employeenum = e.employeenum
+			WHERE ea.r >= #{start}
 		]]>
 	</select>
 </mapper>
