@@ -6,7 +6,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>공지게시판</title>
+		<title>${dto.title}</title>
 		<link rel="shortcut icon" type="image/png" href="/resources/assets/images/logos/favicon.png" />
   		<link rel="stylesheet" href="/resources/assets/css/styles.min.css" />
    		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
@@ -33,39 +33,28 @@
       	<!--  Header End -->
 	     <div class="container-fluid">
 	     		<c:if test="${isAdmin}">
-	     			<a href="/admin/notice/input">공지작성</a>
+	     			<a href="/admin/notice/update?no=${dto.no}">수정하기</a>
+	     			<a href="/admin/notice/delete?no=${dto.no}">삭제하기</a>
 	     		</c:if>
-		     	<c:if test="${cnt==0}">
-		     		<h1>아직 공지가 없어요..😭😭</h1>
-		     	</c:if>
-		     	<c:if test="${cnt>0}">
-		     		<table border="1">
-		     			<tr>
-		     				<td>번호</td>
-		     				<td>제목</td>
-		     				<td>작성자</td>
-		     				<td>작성날짜</td>
-		     				<td>조회수</td>
-		     			</tr>
-		     			<c:forEach var="dto" items="${noticeList}" varStatus="loopStatus">
-		     				<c:set var="num" value="${noticeList.size() - loopStatus.index}" />
-		     				<tr>
-		     					<td>${num}</td>
-		     					<td>
-		     						<a href="/admin/notice/content?no=${dto.no}">${dto.title}</a>
-		     					</td>
-		     					<td>${dto.writer}</td>
-		     					<td>
-		     						<fmt:formatDate value="${dto.reg}" dateStyle="long" type="date"/>
-		     					</td>
-		     					<td>${dto.readcnt}</td>
-		     				</tr>
-		     			</c:forEach>
-		     		</table>
-		     	</c:if>
-		     	
-				<jsp:include page="/WEB-INF/views/include/paging.jsp" />
-				
+	     		<a href="/admin/notice/list">목록으로</a>
+		     	<table border="1">
+		     		<tr>
+		     			<td>제목</td>
+		     			<td>작성자</td>
+		     			<td>내용</td>
+		     			<td>작성일</td>
+		     			<td>조회수</td>
+		     		</tr>
+		     		<tr>
+		     			<td>${dto.title}</td>
+		     			<td>${dto.writer}</td>
+		     			<td>${dto.content}</td>
+		     			<td>
+		     				<fmt:formatDate value="${dto.reg}" dateStyle="long" type="date"/>
+		     			</td>
+		     			<td>${dto.readcnt}</td>
+		     		</tr>
+		     	</table>
 	     </div>
 	    </div>
 	   </div>

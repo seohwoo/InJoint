@@ -56,7 +56,6 @@ public class ChatController {
 	}
 	
 	
-	
 	@RequestMapping("addChat")
 	public String addChat(Model model, Principal pri) {
 		service.addChat(model, pri.getName());

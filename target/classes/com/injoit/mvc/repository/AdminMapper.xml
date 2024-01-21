@@ -118,4 +118,31 @@
 	<update id="updateJoinCnt" parameterType="hashmap">
 		update emp_chat set isjoin=#{joincnt} where no=#{chatno}
 	</update>
+	<select id="noticeBoardCnt" resultType="int">
+		select count(*) from emp_noticeboard
+	</select>
+	<select id="findAllNotice" parameterType="hashmap" resultType="noticeDTO">
+		<![CDATA[
+			select * from 
+	         (select notice.*, rownum r from 
+	         (select * from emp_noticeboard order by reg desc) notice) 
+         	where r >= #{start} and r <= #{end}
+		]]>
+	</select>
+	<select id="findNoticeContent" parameterType="hashmap" resultType="noticeDTO">
+		select * from emp_noticeboard where no=#{no}
+	</select>
+	<update id="readCntUp" parameterType="hashmap">
+		update emp_noticeboard set readcnt=readcnt+1 where no=#{no}
+	</update>
+	<insert id="insertNotice" parameterType="noticeDTO">
+		insert into emp_noticeboard(no, title, writer, content, reg) 
+		values(emp_noticeboard_seq.nextval, #{title}, #{writer}, #{content}, sysdate)
+	</insert>
+	<update id="updateNotice" parameterType="noticeDTO">
+		update emp_noticeboard set title=#{title}, content=#{content} where no=#{no}
+	</update>
+	<delete id="deleteNotice" parameterType="noticeDTO">
+		delete from emp_noticeboard where no=#{no}
+	</delete>
 </mapper>

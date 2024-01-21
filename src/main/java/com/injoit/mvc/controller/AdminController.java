@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.injoit.mvc.bean.EmployeeDTO;
+import com.injoit.mvc.bean.NoticeBoardDTO;
 import com.injoit.mvc.service.AdminService;
 import com.injoit.mvc.service.EmployeeService;
 
@@ -67,8 +68,89 @@ public class AdminController {
 	}
 	
 	@RequestMapping("notice/list")
-	public String noticeList(Model model, Principal pri) {
+	public String noticeList(Model model, Principal pri, String pageNum) {
+		if(pageNum==null) {
+			pageNum = "1";
+		}
+		service.showAllNotice(model, Integer.parseInt(pageNum));
+		EmployeeDTO dto = empService.mypage(pri.getName());
+		boolean isAdmin = false;
+		if(dto.getDepartnum().equals("6666")) {
+			isAdmin = true;
+		}
+		model.addAttribute("isAdmin", isAdmin);
+		model.addAttribute("my", dto);
+		model.addAttribute("pageUrl", "/admin/attendance");
 		return "admin/notice/noticeList";
+	}
+	
+	@RequestMapping("notice/content")
+	public String noticeContent(Model model, Principal pri, String no) {
+		service.showNoticeContent(model, no);
+		EmployeeDTO dto = empService.mypage(pri.getName());
+		model.addAttribute("my", dto);
+		boolean isAdmin = false;
+		if(dto.getDepartnum().equals("6666")) {
+			isAdmin = true;
+		}
+		model.addAttribute("isAdmin", isAdmin);
+		return "admin/notice/noticeContent";
+	}
+	
+	@RequestMapping("notice/input")
+	public String insertNotice(Model model, Principal pri) {
+		EmployeeDTO dto = empService.mypage(pri.getName());
+		model.addAttribute("my", dto);
+		boolean isAdmin = false;
+		if(dto.getDepartnum().equals("6666")) {
+			isAdmin = true;
+		}
+		model.addAttribute("isAdmin", isAdmin);
+		return "admin/notice/insertNotice";
+	}
+	
+	@RequestMapping("notice/inputPro")
+	public String insertNoticePro(NoticeBoardDTO dto) {
+		service.insertNotice(dto);
+		return "redirect:/admin/notice/list";
+	}
+	
+	@RequestMapping("notice/update")
+	public String updateNotice(Model model, Principal pri, String no) {
+		service.updateToForm(model, no);
+		EmployeeDTO dto = empService.mypage(pri.getName());
+		model.addAttribute("my", dto);
+		boolean isAdmin = false;
+		if(dto.getDepartnum().equals("6666")) {
+			isAdmin = true;
+		}
+		model.addAttribute("isAdmin", isAdmin);
+		return "admin/notice/updateNotice";
+	}
+	
+	@RequestMapping("notice/updatePro")
+	public String updateNoticePro(NoticeBoardDTO dto) {
+		service.updateNotice(dto);
+		return "redirect:/admin/notice/list";
+	}
+	
+	@RequestMapping("notice/delete")
+	public String deleteNotice(Model model, Principal pri, String no) {
+		service.updateToForm(model, no);
+		EmployeeDTO dto = empService.mypage(pri.getName());
+		model.addAttribute("my", dto);
+		boolean isAdmin = false;
+		if(dto.getDepartnum().equals("6666")) {
+			isAdmin = true;
+		}
+		model.addAttribute("isAdmin", isAdmin);
+		return "admin/notice/deleteNotice";
+	}
+	
+	@RequestMapping("notice/deletePro")
+	public String deleteNoticePro(NoticeBoardDTO dto) {
+		service.deleteNotice(dto);
+		return "redirect:/admin/notice/list";
 	}
 	
 	

@@ -19,6 +19,7 @@ import org.springframework.ui.Model;
 import com.injoit.mvc.bean.ChatDTO;
 import com.injoit.mvc.bean.EmpAttendanceDTO;
 import com.injoit.mvc.bean.EmployeeDTO;
+import com.injoit.mvc.bean.NoticeBoardDTO;
 import com.injoit.mvc.data.FileRoot;
 import com.injoit.mvc.repository.AdminMapper;
 
@@ -227,4 +228,51 @@ public class AdminServiceImpl implements AdminService{
 		mapper.updateJoinCnt(employeeMap);
 		return joincnt;
 	}
+
+	@Override
+	public void showAllNotice(Model model, int pageNum) {
+		int pageSize = 10;
+		int cnt = mapper.noticeBoardCnt();
+		List<NoticeBoardDTO> list = Collections.EMPTY_LIST;
+		page(pageSize, pageNum, cnt, employeeMap);
+		if(cnt>0) {
+			list = mapper.findAllNotice(employeeMap);
+		}
+		model.addAttribute("cnt", cnt);
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("maxPageNum", Integer.parseInt(employeeMap.get("maxPageNum")));
+		model.addAttribute("noticeList", list);
+	}
+
+	@Override
+	public void showNoticeContent(Model model, String no) {
+		employeeMap.put("no", no);
+		mapper.readCntUp(employeeMap);
+		NoticeBoardDTO dto = mapper.findNoticeContent(employeeMap);
+		model.addAttribute("dto", dto);
+	}
+
+	@Override
+	public void insertNotice(NoticeBoardDTO dto) {
+		mapper.insertNotice(dto);
+	}
+
+	@Override
+	public void updateToForm(Model model, String no) {
+		employeeMap.put("no", no);
+		NoticeBoardDTO dto = mapper.findNoticeContent(employeeMap);
+		model.addAttribute("dto", dto);
+	}
+
+	@Override
+	public void updateNotice(NoticeBoardDTO dto) {
+		mapper.updateNotice(dto);
+	}
+
+	@Override
+	public void deleteNotice(NoticeBoardDTO dto) {
+		mapper.deleteNotice(dto);
+	}
+	
+	
 }

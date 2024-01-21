@@ -6,6 +6,7 @@ import java.util.List;
 import com.injoit.mvc.bean.ChatDTO;
 import com.injoit.mvc.bean.EmpAttendanceDTO;
 import com.injoit.mvc.bean.EmployeeDTO;
+import com.injoit.mvc.bean.NoticeBoardDTO;
 
 public interface AdminMapper {
 	
@@ -29,5 +30,11 @@ public interface AdminMapper {
 	public String findProfile(HashMap<String, String> map);
 	public int findJoinCnt(HashMap<String, String> map);
 	public void updateJoinCnt(HashMap<String, String> map);
-	
+	public int noticeBoardCnt();
+	public List<NoticeBoardDTO> findAllNotice(HashMap<String, String> map);
+	public NoticeBoardDTO findNoticeContent(HashMap<String, String> map);
+	public void readCntUp(HashMap<String, String> map);
+	public void insertNotice(NoticeBoardDTO dto);
+	public void updateNotice(NoticeBoardDTO dto);
+	public void deleteNotice(NoticeBoardDTO dto);
 }
