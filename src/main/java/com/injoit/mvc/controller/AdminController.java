@@ -11,7 +11,7 @@ import com.injoit.mvc.bean.EmployeeDTO;
 import com.injoit.mvc.service.AdminService;
 import com.injoit.mvc.service.EmployeeService;
 
-@RequestMapping("/admin/")
+@RequestMapping("/admin/*")
 @Controller
 public class AdminController {
 
@@ -26,8 +26,13 @@ public class AdminController {
 		if(pageNum==null) {
 			pageNum = "1";
 		}
+		boolean isAdmin = false;
 		service.findAllEmployee(model, Integer.parseInt(pageNum));
 		EmployeeDTO dto = empService.mypage(pri.getName());
+		if(dto.getDepartnum().equals("6666")) {
+			isAdmin = true;
+		}
+		model.addAttribute("isAdmin", isAdmin);
 		model.addAttribute("my", dto);
 		model.addAttribute("pageUrl", "/admin/showEmp");
 		return "admin/showEmployee";
@@ -38,8 +43,13 @@ public class AdminController {
 		if(pageNum==null) {
 			pageNum = "1";
 		}
+		boolean isAdmin = false;
 		service.findAllEmpAttendance(model, Integer.parseInt(pageNum));
 		EmployeeDTO dto = empService.mypage(pri.getName());
+		if(dto.getDepartnum().equals("6666")) {
+			isAdmin = true;
+		}
+		model.addAttribute("isAdmin", isAdmin);
 		model.addAttribute("my", dto);
 		model.addAttribute("pageUrl", "/admin/attendance");
 		return "admin/showAttendance";
@@ -55,5 +65,14 @@ public class AdminController {
 		service.offWorkEmp(model, pri.getName());
 		return "admin/offwork";
 	}
+	
+	@RequestMapping("notice/list")
+	public String noticeList(Model model, Principal pri) {
+		return "admin/notice/noticeList";
+	}
+	
+	
+	
+	
 	
 }

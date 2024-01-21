@@ -1,18 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>     
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>      
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>근태관리</title>
+		<title>채팅방만들기</title>
 		<link rel="shortcut icon" type="image/png" href="/resources/assets/images/logos/favicon.png" />
   		<link rel="stylesheet" href="/resources/assets/css/styles.min.css" />
    		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
+   		<script>
+	        function validateForm() {
+	            var checkboxes = document.getElementsByName("invite");
+	            var isChecked = false;
+	            for (var i = 0; i < checkboxes.length; i++) {
+	                if (checkboxes[i].checked) {
+	                    isChecked = true;
+	                    break;
+	                }
+	            }
+	            if (!isChecked) {
+	                alert("하나 이상의 사원을 선택하세요.");
+	                return false; // 폼 제출을 막음
+	            }
+	            return true;	// 폼 제출을 허용
+	        }
+	   </script>
 	</head>
 	<body>
-		<!--  Body Wrapper -->
+	<!--  Body Wrapper -->
 	  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
 	    data-sidebar-position="fixed" data-header-position="fixed">
 		<!-- Sidebar Start -->
@@ -32,53 +48,35 @@
       	<jsp:include page="/WEB-INF/views/employee/header.jsp"/>
       	<!--  Header End -->
 	     <div class="container-fluid">
-	     	<jsp:include page="/WEB-INF/views/admin/isAdmin.jsp" />
-	     	<c:if test="${isAdmin}">
-		     	<h1>근태관리</h1>
-		     	<table border="1">
-		     		<tr>
-		     			<td>전체사원수</td>
-		     			<td>오늘날짜</td>
-		     			<td></td>
-		     			<td>출근사원수</td>
-		     			<td>퇴근사원수</td>
-		     		</tr>
-		     		<tr>
-		     			<td>${empCnt}</td>
-		     			<td>
-		     				<fmt:formatDate value="${day}" dateStyle="long" type="date"/>
-		     			</td>
-		     			<td></td>
-		     			<td>${onWorkCnt}</td>
-		     			<td>${cnt-onWorkCnt}</td>
-		     		</tr>
-		     	</table>
-				<c:if test="${cnt==0}">
-					<h1>아직 아무도 출근을 안했어요..😝😝😝😝</h1>
-				</c:if>
-				<c:if test="${cnt>0}">
-					<table border="1">
+	     	<c:if test="${cnt==0}">
+			<h1>사원이 없습니다...😅😅😅😅</h1>
+		</c:if>
+		<c:if test="${cnt>0}">
+			<form id="chatForm" action="/chat/createRoom" method="post" onsubmit="return validateForm()">
+				<table border="1">
+					<tr>
+						<td>사원번호</td>
+						<td>사용자명</td>
+						<td>부서명</td>
+						<td>초대</td>
+					</tr>
+					
+					<c:forEach var="dto" items="${empList}">
 						<tr>
-							<td>번호</td>
-							<td>사원번호</td>
-							<td>사원명</td>
-							<td>출근</td>
-							<td>퇴근</td>
+							<td>${dto.employeenum}</td>
+							<td>${dto.name}</td>
+							<td>${dto.departname}</td>
+							<td>
+								<input type="checkbox" name="invite" value="${dto.employeenum}"/>
+							</td>
 						</tr>
-						<c:forEach var="dto" items="${empAttendaceList}" varStatus="loopStatus">
-							<c:set var="cnt" value="${empAttendaceList.size() - loopStatus.index}" />
-							<tr>
-								<td>${cnt}</td>
-								<td>${dto.employeenum}</td>
-								<td>${dto.name}</td>
-								<td><fmt:formatDate value="${dto.onwork}" dateStyle="long" type="both"/></td>
-								<td><fmt:formatDate value="${dto.offwork}" dateStyle="long" type="both"/></td>
-							</tr>
-						</c:forEach>
-					</table>
-					<jsp:include page="/WEB-INF/views/include/paging.jsp" />
-				</c:if>
-			</c:if>
+					</c:forEach>
+				</table>
+				<input type="text" name="roomname" placeholder="채팅방 이름을 입력하세요.." required="required"/>
+				<br />
+				<input type="submit" value="초대"/>
+			</form>
+		</c:if>
 	     </div>
 	    </div>
 	   </div>
