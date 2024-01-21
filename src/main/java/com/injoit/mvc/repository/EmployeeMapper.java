@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.injoit.mvc.bean.CalendarDTO;
+import com.injoit.mvc.bean.Emp_voteDTO;
 import com.injoit.mvc.bean.EmployeeDTO;
 import com.injoit.mvc.bean.Vote_countDTO;
 import com.injoit.mvc.bean.Vote_queDTO;
@@ -26,5 +27,19 @@ public interface EmployeeMapper {
 	public String departname(String departnum);
 	public void vote(Vote_queDTO dto);
 	public void vote_count(Vote_countDTO dto);
-	public List<Vote_countDTO> vote_que();
+	//public List<Vote_countDTO> vote_que();
+	public String departnum(String departnum);
+	public List<Vote_queDTO> vq(int no);
+	public List<Vote_queDTO> vq2();
+	public List<Vote_countDTO> vc(int no);
+	public int vo(Emp_voteDTO dto);
+	public int noChk(@Param("no") int no, @Param("employeenum") String employeenum);
+	public void up_no(Emp_voteDTO dto);
+	public int votecount(int no);
+	public int memcount(int num);
+	public String sel(@Param("employeenum")String employeenum, @Param("no") int no);
+	public void deldate();
+	public List<EmployeeDTO> votename(int num);
+	public void delvote(int no);
+	public List<Vote_countDTO> delimg(int no);
 }

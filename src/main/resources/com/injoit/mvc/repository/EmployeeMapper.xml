@@ -42,9 +42,9 @@
 			name=#{name},
 			email=#{email},
 			phone=#{phone},
+			birth=#{birth},
 			addr1=#{addr1},
 			addr2=#{addr2},
-			position=#{position}
 		</set> 
 		where employeenum=#{employeenum}
 	</update>
@@ -87,6 +87,7 @@
 		insert into vote_count (num, no, typevalue, img) values 
 			(vote_count_seq.nextval, #{no}, #{typevalue}, #{img})
 	</insert>
+	<!-- 
 	<resultMap type="vote_que" id="vq">
 		<result column="no" property="no"/>
 		<result column="title" property="title"/>
@@ -106,5 +107,58 @@
 	<select id="vote_que" resultType="vote_count" resultMap="vc">
 		select * from vote_que vq
 			join vote_count vc on vq.no = vc.no order by vc.num asc
+	</select>
+	-->
+	
+	<select id="vq" resultType="vote_que">
+		select * from vote_que where no=#{no}
+	</select>
+	<select id="vq2" resultType="vote_que">
+		select * from vote_que order by no desc
+	</select>
+	
+	<select id="vc" resultType="vote_count">
+		select * from vote_count where no=#{no}
+	</select>
+	
+	<select id="departnum">
+		select departname from department where departnum = #{departnum}
+	</select>
+	
+	<insert id="vo" parameterType="emp_vote">
+		insert into emp_vote values (#{no}, #{employeenum}, #{num})
+	</insert>
+	
+	<select id="noChk">
+		select count(*) from emp_vote where no =#{no} and employeenum=#{employeenum}
+	</select>
+	
+	<update id="up_no" parameterType="emp_vote">
+		update emp_vote set num=#{num}, employeenum=#{employeenum} where no=#{no} and employeenum=#{employeenum}
+	</update>
+	
+	<select id="votecount">
+		select count(*) from emp_vote where no=#{no}
+	</select>
+	<select id="votename" resultType="employee">
+		select * from employee where employeenum in
+			(select employeenum from emp_vote where num=#{num})
+	</select>
+	<select id="memcount">
+		select count(*) from emp_vote where num=#{num}
+	</select>
+	<select id="sel">
+		select num from emp_vote where no=#{no} and employeenum=#{employeenum}
+	</select>
+	<delete id="deldate">
+	<![CDATA[ 
+		delete from vote_que where enddate < sysdate - 7
+	]]>	
+	</delete>
+	<delete id="delvote">
+		delete from vote_que where no=#{no}
+	</delete>
+	<select id="delimg" resultType="vote_count">
+		select img from vote_count where no=#{no}
 	</select>
 </mapper>

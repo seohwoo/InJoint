@@ -9,5 +9,6 @@
   		<typeAlias type="com.injoit.mvc.bean.CalendarDTO" alias="calendar"/>
   		<typeAlias type="com.injoit.mvc.bean.Vote_queDTO" alias="vote_que"/>
   		<typeAlias type="com.injoit.mvc.bean.Vote_countDTO" alias="vote_count"/>
+  		<typeAlias type="com.injoit.mvc.bean.Emp_voteDTO" alias="emp_vote"/>
   	</typeAliases>
 </configuration>

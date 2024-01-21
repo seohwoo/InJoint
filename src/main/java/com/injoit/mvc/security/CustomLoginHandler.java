@@ -26,9 +26,9 @@ public class CustomLoginHandler implements AuthenticationSuccessHandler {
 		}else if(roleNames.contains("ROLE_MEMBER")) {
 			rdir = "/emp/worker";
 		}
-		if(request.getSession().getAttribute("url_prior") != null) {
-			rdir = (String)request.getSession().getAttribute("url_prior");
-		}
+		//if(request.getSession().getAttribute("url_prior") != null) {
+		//	rdir = (String)request.getSession().getAttribute("url_prior");
+		//}
 		response.sendRedirect(rdir);
 	}
 }

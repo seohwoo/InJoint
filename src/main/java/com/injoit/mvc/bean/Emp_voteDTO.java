@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class Emp_voteDTO {
 	private int no;
-	private String typevalue;
+	private int num;
 	private String employeenum;
 }
