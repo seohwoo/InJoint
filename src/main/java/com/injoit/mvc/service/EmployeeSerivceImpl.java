@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.injoit.mvc.bean.CalendarDTO;
+import com.injoit.mvc.bean.Emp_voteDTO;
 import com.injoit.mvc.bean.EmployeeDTO;
 import com.injoit.mvc.bean.Vote_countDTO;
 import com.injoit.mvc.bean.Vote_queDTO;
@@ -127,17 +128,17 @@ public class EmployeeSerivceImpl implements EmployeeService{
 	    mapper.vote(vq);
 	    int no = vq.getNo();
 	    System.out.println("bbbbbbb" + no);
-	    String uuid = UUID.randomUUID().toString();
 
 	    for (int i = 0; i < typevalue.length; i++) {
+	    	String uuid = UUID.randomUUID().toString();
 	        System.out.println(typevalue.length);
 	        String typevalue1 = typevalue[i];
 	        dto.setTypevalue(typevalue1);
 
 	        // votefile의 크기가 인덱스 i에 해당하는 파일이 존재하는지 확인
-	        if (votefile.size() > i) {
+	        if (votefile.size() >= i) {
 	            MultipartFile voteFile = votefile.get(i);
-
+	            System.out.println(voteFile.getOriginalFilename());
 	            if (voteFile != null && !voteFile.isEmpty()) {
 	                String filename = voteFile.getOriginalFilename();
 	                String ext = filename.substring(filename.lastIndexOf("."));
@@ -145,20 +146,89 @@ public class EmployeeSerivceImpl implements EmployeeService{
 	                filename = "file_" + uuid + ext;
 	                File copy = new File(path + filename);
 	                dto.setImg(filename);
+	                try {
+	                	voteFile.transferTo(copy);
+					}catch(Exception e) {
+						e.printStackTrace();
+					}
 	            } else {
 	                // 이미지가 없는 경우에는 null로 설정
-	                dto.setImg("null");
+	                dto.setImg("noimg.png");
 	            }
 	        } else {
-	            // votefile의 크기가 i에 미치지 못하는 경우에는 이미지가 없는 것으로 처리
-	            dto.setImg("null");
+	            dto.setImg("noimg.png");
 	        }
 	        dto.setNo(no);
 	        mapper.vote_count(dto);
 	    }
 	}
+//	@Override
+//	public List<Vote_countDTO> vote_que() {
+//		return mapper.vote_que();
+//	}
 	@Override
-	public List<Vote_countDTO> vote_que() {
-		return mapper.vote_que();
+	public String departnum(String departnum) {
+		return mapper.departname(departnum);
 	}
+	@Override
+	public List<Vote_queDTO> vq(int no) {
+		return mapper.vq(no);
+	}
+	@Override
+	public List<Vote_queDTO> vq2() {
+		return mapper.vq2();
+	}
+	@Override
+	public List<Vote_countDTO> vc(int no) {
+		return mapper.vc(no);
+	}
+	// 투표하기
+	@Override
+	public int vo(Emp_voteDTO dto) {
+		int result = mapper.noChk(dto.getNo(), dto.getEmployeenum());
+		if(result == 0) {
+			mapper.vo(dto);
+		}else {
+			mapper.up_no(dto);
+		}
+		return 1;
+	}
+	@Override
+	public int votecount(int no) {
+		return mapper.votecount(no);
+	}
+	@Override
+	public int memcount(int num) {
+		return mapper.memcount(num);
+	}
+	
+	@Override
+	public String sel(String employeenum, int no) {
+		String result = mapper.sel(employeenum, no);
+		if (result != null)
+			return result;
+		else
+			return "0";
+	}
+	@Override
+	public void deldate() {
+		mapper.deldate();
+	}
+	@Override
+	public List<EmployeeDTO> votename(int num) {
+		return mapper.votename(num);
+	}
+	@Override
+	public void delvote(int no, String path) {
+		List<Vote_countDTO> img = mapper.delimg(no);
+		for(Vote_countDTO i : img) {
+			File file = new File(path + i.getImg());
+			if(file.isFile()) {
+				file.delete();
+			}
+		}
+		mapper.delvote(no);
+	}
+	
+	
 } 

@@ -1,8 +1,11 @@
 package com.injoit.mvc.bean;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.injoit.mvc.controller.ListDTO;
 
 import lombok.Data;
 
@@ -15,6 +18,8 @@ public class Vote_queDTO {
 	private int typenum;
 	private String employeenum;
 	private String anonymous;
-	
+	private List<ListDTO> img;
+	private int allcount;
+	private int check;
 //	private Vote_countDTO vc;
 }
