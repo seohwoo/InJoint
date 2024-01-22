@@ -6,7 +6,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>근태관리</title>
+		<title>${dto.title}</title>
 		<link rel="shortcut icon" type="image/png" href="/resources/assets/images/logos/favicon.png" />
   		<link rel="stylesheet" href="/resources/assets/css/styles.min.css" />
    		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
@@ -32,53 +32,29 @@
       	<jsp:include page="/WEB-INF/views/employee/header.jsp"/>
       	<!--  Header End -->
 	     <div class="container-fluid">
-	     	<jsp:include page="/WEB-INF/views/admin/isAdmin.jsp" />
-	     	<c:if test="${isAdmin}">
-		     	<h1>근태관리</h1>
+	     		<c:if test="${isAdmin}">
+	     			<a href="/admin/notice/update?no=${dto.no}">수정하기</a>
+	     			<a href="/admin/notice/delete?no=${dto.no}">삭제하기</a>
+	     		</c:if>
+	     		<a href="/admin/notice/list">목록으로</a>
 		     	<table border="1">
 		     		<tr>
-		     			<td>전체사원수</td>
-		     			<td>오늘날짜</td>
-		     			<td></td>
-		     			<td>출근사원수</td>
-		     			<td>퇴근사원수</td>
+		     			<td>제목</td>
+		     			<td>작성자</td>
+		     			<td>내용</td>
+		     			<td>작성일</td>
+		     			<td>조회수</td>
 		     		</tr>
 		     		<tr>
-		     			<td>${empCnt}</td>
+		     			<td>${dto.title}</td>
+		     			<td>${dto.writer}</td>
+		     			<td>${dto.content}</td>
 		     			<td>
-		     				<fmt:formatDate value="${day}" dateStyle="long" type="date"/>
+		     				<fmt:formatDate value="${dto.reg}" dateStyle="long" type="date"/>
 		     			</td>
-		     			<td></td>
-		     			<td>${onWorkCnt}</td>
-		     			<td>${cnt-onWorkCnt}</td>
+		     			<td>${dto.readcnt}</td>
 		     		</tr>
 		     	</table>
-				<c:if test="${cnt==0}">
-					<h1>아직 아무도 출근을 안했어요..😝😝😝😝</h1>
-				</c:if>
-				<c:if test="${cnt>0}">
-					<table border="1">
-						<tr>
-							<td>번호</td>
-							<td>사원번호</td>
-							<td>사원명</td>
-							<td>출근</td>
-							<td>퇴근</td>
-						</tr>
-						<c:forEach var="dto" items="${empAttendaceList}" varStatus="loopStatus">
-							<c:set var="cnt" value="${empAttendaceList.size() - loopStatus.index}" />
-							<tr>
-								<td>${cnt}</td>
-								<td>${dto.employeenum}</td>
-								<td>${dto.name}</td>
-								<td><fmt:formatDate value="${dto.onwork}" dateStyle="long" type="both"/></td>
-								<td><fmt:formatDate value="${dto.offwork}" dateStyle="long" type="both"/></td>
-							</tr>
-						</c:forEach>
-					</table>
-					<jsp:include page="/WEB-INF/views/include/paging.jsp" />
-				</c:if>
-			</c:if>
 	     </div>
 	    </div>
 	   </div>

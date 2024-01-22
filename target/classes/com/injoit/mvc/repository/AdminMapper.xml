@@ -64,4 +64,85 @@
 			WHERE ea.r >= #{start}
 		]]>
 	</select>
+	
+	<select id="myChatRoomCnt" parameterType="String" resultType="int">
+		select count(*) from emp_chat where employeenum=#{employeenum}
+	</select>
+	
+	<select id="findMyChatRoom" parameterType="String" resultType="chatDTO">
+		select * from emp_chat where employeenum=#{employeenum}
+	</select>
+	
+	<select id="findAllEmpToChat" parameterType="String" resultType="employee">
+		<![CDATA[
+			SELECT e.*, d.departname
+			FROM (
+			    SELECT emp.*
+			    FROM (
+			        SELECT *
+			        FROM employee
+			        WHERE employeenum <> #{employeenum}  
+			    ) emp
+			) e
+			JOIN department d ON e.departnum = d.departnum
+		]]>
+	</select>
+	<select id="isRoom" parameterType="hashmap" resultType="int">
+		select count(*) from emp_chat 
+		where roomname=#{roomname} and employeenum=#{employeenum}
+	</select>
+	<insert id="insertRoomToMe" parameterType="hashmap">
+		insert into emp_chat(no, employeenum, roomname) values(emp_chat_seq.nextval, #{employeenum}, #{roomname})
+	</insert>
+	<insert id="insertRoomToOther" parameterType="hashmap">
+		insert into emp_chat(no, employeenum, roomname) values(emp_chat_seq.currval, #{employeenum}, #{roomname})
+	</insert>
+	<select id="findChatNo" parameterType="hashmap" resultType="int">
+		select no from emp_chat where roomname=#{roomname} and employeenum=#{employeenum}
+	</select>
+	<select id="inRoomInfo" parameterType="hashmap" resultType="chatDTO">
+		SELECT ec.*, emp.name
+		FROM emp_chat ec
+		JOIN employee emp ON ec.employeenum = emp.employeenum
+		WHERE ec.roomname = #{roomname} and ec.employeenum=#{employeenum}
+	</select>
+	<select id="findProfile" parameterType="hashmap" resultType="String">
+		SELECT emp.profile
+		FROM emp_chat ec
+		JOIN employee emp ON ec.employeenum = emp.employeenum
+		WHERE ec.roomname = #{roomname} and emp.name=#{name}
+	</select>
+	<select id="findJoinCnt" parameterType="hashmap" resultType="int">
+		select count(*) from emp_chat where roomname=#{roomname}
+	</select>
+	<update id="updateJoinCnt" parameterType="hashmap">
+		update emp_chat set isjoin=#{joincnt} where no=#{chatno}
+	</update>
+	<select id="noticeBoardCnt" resultType="int">
+		select count(*) from emp_noticeboard
+	</select>
+	<select id="findAllNotice" parameterType="hashmap" resultType="noticeDTO">
+		<![CDATA[
+			select * from 
+	         (select notice.*, rownum r from 
+	         (select * from emp_noticeboard order by reg desc) notice) 
+         	where r >= #{start} and r <= #{end}
+		]]>
+	</select>
+	<select id="findNoticeContent" parameterType="hashmap" resultType="noticeDTO">
+		select * from emp_noticeboard where no=#{no}
+	</select>
+	<update id="readCntUp" parameterType="hashmap">
+		update emp_noticeboard set readcnt=readcnt+1 where no=#{no}
+	</update>
+	<insert id="insertNotice" parameterType="noticeDTO">
+		insert into emp_noticeboard(no, title, writer, content, reg) 
+		values(emp_noticeboard_seq.nextval, #{title}, #{writer}, #{content}, sysdate)
+	</insert>
+	<update id="updateNotice" parameterType="noticeDTO">
+		update emp_noticeboard set title=#{title}, content=#{content} where no=#{no}
+	</update>
+	<delete id="deleteNotice" parameterType="noticeDTO">
+		delete from emp_noticeboard where no=#{no}
+	</delete>
 </mapper>

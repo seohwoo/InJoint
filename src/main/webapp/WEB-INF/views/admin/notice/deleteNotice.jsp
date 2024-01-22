@@ -6,7 +6,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>근태관리</title>
+		<title>공지게시판 삭제</title>
 		<link rel="shortcut icon" type="image/png" href="/resources/assets/images/logos/favicon.png" />
   		<link rel="stylesheet" href="/resources/assets/css/styles.min.css" />
    		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
@@ -33,52 +33,14 @@
       	<!--  Header End -->
 	     <div class="container-fluid">
 	     	<jsp:include page="/WEB-INF/views/admin/isAdmin.jsp" />
-	     	<c:if test="${isAdmin}">
-		     	<h1>근태관리</h1>
-		     	<table border="1">
-		     		<tr>
-		     			<td>전체사원수</td>
-		     			<td>오늘날짜</td>
-		     			<td></td>
-		     			<td>출근사원수</td>
-		     			<td>퇴근사원수</td>
-		     		</tr>
-		     		<tr>
-		     			<td>${empCnt}</td>
-		     			<td>
-		     				<fmt:formatDate value="${day}" dateStyle="long" type="date"/>
-		     			</td>
-		     			<td></td>
-		     			<td>${onWorkCnt}</td>
-		     			<td>${cnt-onWorkCnt}</td>
-		     		</tr>
-		     	</table>
-				<c:if test="${cnt==0}">
-					<h1>아직 아무도 출근을 안했어요..😝😝😝😝</h1>
-				</c:if>
-				<c:if test="${cnt>0}">
-					<table border="1">
-						<tr>
-							<td>번호</td>
-							<td>사원번호</td>
-							<td>사원명</td>
-							<td>출근</td>
-							<td>퇴근</td>
-						</tr>
-						<c:forEach var="dto" items="${empAttendaceList}" varStatus="loopStatus">
-							<c:set var="cnt" value="${empAttendaceList.size() - loopStatus.index}" />
-							<tr>
-								<td>${cnt}</td>
-								<td>${dto.employeenum}</td>
-								<td>${dto.name}</td>
-								<td><fmt:formatDate value="${dto.onwork}" dateStyle="long" type="both"/></td>
-								<td><fmt:formatDate value="${dto.offwork}" dateStyle="long" type="both"/></td>
-							</tr>
-						</c:forEach>
-					</table>
-					<jsp:include page="/WEB-INF/views/include/paging.jsp" />
-				</c:if>
-			</c:if>
+	     	<h1>정말 삭제하시겠습니까..??</h1>
+	     	<form action="/admin/notice/deletePro" method="post">
+	     		<input type="hidden" name="no" value="${dto.no}"/> <br />
+	     		<input type="text" name="title" value="${dto.title}" readonly="readonly"/> <br />
+	     		<input type="text" name="writer" value="${my.name}" readonly="readonly"/> <br />
+	     		<textarea rows="5" cols="20" name="content" readonly="readonly">${dto.content}</textarea> <br/>
+	     		<input type="submit" value="삭제"/>
+	     	</form>
 	     </div>
 	    </div>
 	   </div>

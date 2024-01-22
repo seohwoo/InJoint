@@ -120,7 +120,7 @@
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="/emp/member/calendar" aria-expanded="false">
+              <a class="sidebar-link" href="/chat/list" aria-expanded="false">
                 <span>
                   <i class="fa fa-calendar"></i> 
                 </span>
@@ -145,6 +145,14 @@
                   <i class="fa fa-pie-chart"></i>
                 </span>
                 <span class="hide-menu">근태관리</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/notice/list" aria-expanded="false">
+                <span>
+                  <i class="fa fa-pie-chart"></i>
+                </span>
+                <span class="hide-menu">공지게시판</span>
               </a>
             </li>
           </ul>

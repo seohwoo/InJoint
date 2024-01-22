@@ -8,6 +8,8 @@
       http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 	
 	<beans:bean id="employeeDTO" class="com.injoit.mvc.bean.EmployeeDTO"/>
+	<beans:bean id="noticeBoardDTO" class="com.injoit.mvc.bean.NoticeBoardDTO"/>
+	<beans:bean id="chatDTO" class="com.injoit.mvc.bean.ChatDTO"/>
 	<beans:bean id="employeeMap" class="java.util.HashMap" >
    	<beans:constructor-arg>
     	<beans:map key-type="String" value-type="String" />
