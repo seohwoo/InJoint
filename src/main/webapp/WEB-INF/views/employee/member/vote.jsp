@@ -142,6 +142,7 @@
 		}
   </script>
 </head>
+<body style="background-color: rgb(193 206 220 / 15%);">
 <!-- Body Wrapper -->
 <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
     data-sidebar-position="fixed" data-header-position="fixed">
@@ -177,24 +178,25 @@
         	<div class="container">
 	        <ul class="list-unstyled row" style="display: grid; grid-template-columns: repeat(3, 1fr); gap:20px;">
 	            <c:forEach var="vote" items="${vote}">
-				    <li style="position:relative; padding: 0 !important; border:1px solid gray; min-height: 150px; margin-bottom: 20px;">
+				    <li style="position:relative; box-shadow: 1px 1px 4px -2px; background-color:white; border-radius:7px; padding: 0 !important; border:1px solid lightgray; min-height: 150px; margin-bottom: 20px;">
 				        <input type="hidden" id="no" value="${vote.no}" name="no">
 					    <c:set var="formattedDate" value="${vote.enddate}" />
 	           			<fmt:formatDate pattern="yyyy/MM/dd" value="${formattedDate}" var="enddate" />
 				        <input type="hidden" id="employeenum" value="<sec:authentication property="principal.dto.employeenum"/>">
+	                	<div style="border-bottom: 1px solid lightgray; padding: 5px 5px; display:flex;">
+	                		<div style="border:2px solid #5D87FF; border-radius: 5px; color:#5D87FF; margin: 1.5px 5px 1.5px 1.5px;">
 	                	<c:if test="${enddate >= today}">
-	                	<div style="background-color: #E5E1DA; display:flex;">
-	                		<div style="border:1px solid red; border-radius: 5px; color:red; margin: 1.5px 5px 1.5px 1.5px;">진행중</div><div>Q. ${vote.title}</div></div>
+	                		진행중
 	                	</c:if>
 	                	<c:if test="${enddate < today}">
-	                	<div style="background-color: #E5E1DA; display:flex;">
-	                		<div style="border:1px solid red; border-radius: 5px; color:red; margin: 1.5px 5px 1.5px 1.5px;">투표마감</div><div>Q. ${vote.title}</div></div>
+	                		투표마감
 	                	</c:if>
+	                	</div><div style="font-weight: 500;">Q. ${vote.title}</div></div>
 	                	<c:if test="${vote.anonymous == 1}">
-	                		<div>익명 투표</div>
+	                		<div style="position: absolute; right: 8px; color: gray;">익명 투표</div>
 	                	</c:if>
 				        <c:if test="${not empty vote.img}">
-				            	<div style="margin-bottom: 30px;">
+				            	<div style="margin-bottom: 50px;">
 				            <c:forEach var="vi" items="${vote.img}">
 				                <table style="width:90%; margin: 10px auto;">
 				                	<tr>
@@ -205,12 +207,16 @@
 				            </c:forEach>
 				                	</div>
 				        </c:if>
+				        <div onclick="window.location.href='/emp/member/voting?no='+${vote.no}" style=" display:flex; justify-content: space-between;
+				        padding: 7px 5px; border-bottom-left-radius: 7px; border-bottom-right-radius: 7px; position: absolute; bottom:0; cursor:pointer; width:100%; background-color:#5D87FF; color:white;">
 				        <c:if test="${enddate >= today}">
-				        <div onclick="window.location.href='/emp/member/voting?no='+${vote.no}" style="position: absolute; bottom:0; cursor:pointer; width:100%; background-color:#3D3B40; color:white;">투표하러 가기</div>
+				        투표하러 가기
 				    	</c:if>
 				        <c:if test="${enddate < today}">
-				        <div onclick="window.location.href='/emp/member/voting?no='+${vote.no}" style="position: absolute; bottom:0; cursor:pointer; width:100%; background-color:#3D3B40; color:white;">투표 결과 보러가기</div>
+				        투표 결과 보러가기
 				    	</c:if>
+				    	<div style="float: right;">></div>
+				    	</div>
 				    </li>
 				</c:forEach>
 	        </ul>
@@ -341,3 +347,5 @@ $(document).ready(function () {
 </script>
 <script src="/resources/libs/jquery/dist/jquery.min.js"></script>
 <script src="/resources/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

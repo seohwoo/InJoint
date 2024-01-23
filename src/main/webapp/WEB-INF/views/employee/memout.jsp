@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<title>회원탈퇴</title>
-<style>
-        /* CSS 스타일링 */
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원탈퇴</title>
+    <style>
         body {
             font-family: Arial, sans-serif;
             display: flex;
@@ -14,12 +15,17 @@
             align-items: center;
             height: 100vh;
             margin: 0;
+            background-color: #f8f9fa; 
         }
 
         .container {
             text-align: left;
             max-width: 600px;
             margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+            border-radius: 8px;
         }
 
         #agree-checkbox {
@@ -29,20 +35,39 @@
         #withdraw-button {
             cursor: pointer;
             padding: 10px;
-            background-color: #f00;
+            background-color: #dc3545; 
             color: #fff;
             border: none;
             border-radius: 5px;
+            width: 100%; 
         }
 
         #agreement-text {
             margin-bottom: 20px;
         }
+
+        h2 {
+            color: #dc3545;
+        }
+
+        p {
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                max-width: 100%;
+            }
+        }
     </style>
 </head>
+
 <body>
     <div class="container">
-        <!-- 동의서 내용 -->
         <div id="agreement-text">
             <h2>회원탈퇴 동의서</h2>
             <p>본인은 injoint 서비스를 더 이상 이용하지 않고자 회원탈퇴를 신청합니다. 회원탈퇴 시에는 아래의 내용을 숙지하였음을 확인합니다.</p>
@@ -55,12 +80,10 @@
             <p><strong>3. 기타 조항</strong></p>
             <p>3.1 추가적인 동의 사항이 있을 경우 별도로 안내됩니다.</p>
         </div>
-
-        <!-- 동의 체크박스 -->
-        <input type="checkbox" id="agree-checkbox">
-        <label for="agree-checkbox">위 내용에 동의합니다.</label>
-
-        <!-- 탈퇴 버튼 -->
+		<div style="display: flex;">
+        	<input type="checkbox" id="agree-checkbox">
+        	<label for="agree-checkbox">위 내용에 동의합니다.</label>
+		</div>
         <button id="withdraw-button" onclick="withdraw()">회원탈퇴</button>
     </div>
 
@@ -72,10 +95,11 @@
                 alert("회원탈퇴를 위해 동의 체크가 필요합니다.");
                 agreeCheckbox.focus();
             } else {
-            	window.opener.changeParentLocation("/emp/memoutPro");
+                window.opener.changeParentLocation("/emp/memoutPro");
                 window.close();
             }
         }
     </script>
 </body>
+
 </html>
