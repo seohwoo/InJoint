@@ -77,7 +77,6 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4"style="z-index:100; margin-top:50px;">
                         <div class="card-body" style="z-index:100; position: relative;">
-                        	<div style="position:absolute; z-index:0; top:-50px; height: 80px; background-color: #5D87FF; color:white; width: 100%;">사원관리</div>
                             <div class="table-responsive">
                             <c:if test="${isAdmin}">
 								<h1 style="margin-bottom: 30px;">사원관리</h1>

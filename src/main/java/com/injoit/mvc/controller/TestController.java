@@ -22,4 +22,9 @@ public class TestController {
 		return "/test/main";
 	}
 	
+	@RequestMapping("chat")
+	public String chat() {
+		return "/test/sample";
+	}
+	
 }

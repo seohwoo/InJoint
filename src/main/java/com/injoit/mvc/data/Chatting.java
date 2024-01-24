@@ -49,7 +49,7 @@ public class Chatting extends DefaultEmbeddableVerticle {
 
         });
 
-        server.listen(9999);
+        server.listen(9898);
     }
 
     private void createChatFile(String roomIdentifier, String msg) {
