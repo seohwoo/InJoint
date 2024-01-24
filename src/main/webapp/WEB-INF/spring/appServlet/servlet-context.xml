@@ -16,11 +16,17 @@
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
+	
+	<beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<!-- 우선순위 0 -->
+		<beans:property name="order" value="0"/>
+	</beans:bean>
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
+		<beans:property name="order" value="1"/>
 	</beans:bean>
 	
 	<!-- @Controller, @Service ... 같은 @를 읽어온다. -->
@@ -34,9 +40,10 @@
 		<beans:property name="maxUploadSizePerFile" value="2097152" />
 		<beans:property name="maxInMemorySize" value="1048576" /> 
 		<!-- uploadTempDir : 임시폴더경로 -->
-		<beans:property name="uploadTempDir" value="file:/d:/upload/temp" />
+		<beans:property name="uploadTempDir" value="file:/c:/upload/temp" />
 		<!--  <beans:property name="uploadTempDir" value="file:/c:/upload/temp" /> -->
 	</beans:bean>
 	<security:global-method-security pre-post-annotations="enabled" secured-annotations="enabled" />
 	 
+	 <beans:bean id="chatting" class="com.injoit.mvc.data.Chatting" />
 </beans:beans>
