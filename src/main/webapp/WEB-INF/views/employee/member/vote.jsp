@@ -111,7 +111,7 @@
     }
     
     .fileBtn{
-	  background-color:#FF6600;
+	  background-color:#4682A9;
 	  border-radius: 4px;
 	  color: white;
 	  cursor: pointer;
@@ -227,7 +227,7 @@
             </div>
         </div>
     </div>
-    <button class="open-button" onclick="openForm()">
+    <button style="background-color: #749BC2; border-radius: 50%;" class="open-button" onclick="openForm()">
         <img src="/resources/img/write.png" style="width:50px; height:50px;">
     </button>
 
@@ -255,8 +255,8 @@
             	익명<input style="margin:0 5px;" type="radio" name="anonymous" value="1">
             </div>
             <div style="margin-top: 20px;">
-            <button type="submit" style="background-color: " class="btn">Send</button>
-            <button type="button" class="btn cancel" id="close">Close</button>
+            <button type="submit" style="background-color: #91C8E4" class="btn">Send</button>
+            <button type="button" style="color:darkgray; background-color: #F6F4EB" class="btn cancel" id="close">Close</button>
             </div>
         </form>
     </div>

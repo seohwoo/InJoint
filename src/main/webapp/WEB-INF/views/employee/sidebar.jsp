@@ -36,11 +36,11 @@
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="/emp/customLogin" aria-expanded="false">
+              <a class="sidebar-link" href="/emp/customLogout" aria-expanded="false">
                 <span>
                   <i class="ti ti-login"></i>
                 </span>
-                <span class="hide-menu">로그인</span>
+                <span class="hide-menu">로그아웃</span>
               </a>
             </li>
             <li class="sidebar-item">

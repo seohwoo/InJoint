@@ -29,7 +29,7 @@
     </style>
 </head>
 
-<body  style="background-color: rgb(193 206 220 / 15%);" id="page-top">
+<body style="background-color: rgb(193 206 220 / 15%);" id="page-top">
 	<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
 	    data-sidebar-position="fixed" data-header-position="fixed">
 		<!-- Sidebar Start -->
@@ -69,7 +69,7 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+                <div class="container-fluid" style="margin-top: 50px;">
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-body">
