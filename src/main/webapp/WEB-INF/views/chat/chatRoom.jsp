@@ -40,12 +40,14 @@
 		     	<table border="1">
 		     		<tr>
 		     			<td>방이름</td>
+		     			<td>새메세지</td>
 		     		</tr>
 		     		<c:forEach var="dto" items="${chatList}">
 		     			<tr>
 		     				<td>
 		     					<a href="/chat/room?roomname=${dto.roomname}&chatno=${dto.no}">${dto.roomname}</a>
 		     				</td>
+		     				<td>${dto.noread}</td>
 		     			</tr>
 		     		</c:forEach>
 		     	</table>

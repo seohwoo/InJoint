@@ -14,7 +14,8 @@ public interface AdminService {
 	public void chatting(Model model, String roomname, String chatno, String employeenum);
 	public void addChat(Model model, String employeenum);
 	public void createRoom(Model model, String[] invite, String roomname, String employeenum);
-	public int changeJoinCnt(int joincnt, int chatno,int updown);
+	public int changeJoinCnt(int joincnt, int chatno,int updown, String employeenum);
+	public void changeNoreadCnt(int chatno);
 	public void showAllNotice(Model model, int pageNum);
 	public void showNoticeContent(Model model,String no);
 	public void insertNotice(NoticeBoardDTO dto);
