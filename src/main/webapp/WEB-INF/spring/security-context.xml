@@ -14,7 +14,7 @@
 			<security:intercept-url pattern="/sample/all" access="permitAll" />
 			<security:intercept-url pattern="/sample/member" access="hasRole('ROLE_MEMBER')" />
 			<security:intercept-url pattern="/sample/admin" access="hasRole('ROLE_ADMIN')" />
-			
+			<security:csrf disabled="true"/>
 			<!-- 값을 안줘도 필수 항목 -->
 			<security:form-login login-page="/sample/customLogin" authentication-success-handler-ref="customLoginSuccess" />
 			
