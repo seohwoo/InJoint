@@ -164,13 +164,11 @@ public class AdminServiceImpl implements AdminService{
 		String[] arChat = chat.split(",");
 		String profile = "";
 		for (int i = 0; i < arChat.length; i++) {
-			if(i%3==2) {
-				employeeMap.put("name", arChat[i-2]);
-				profile = mapper.findProfile(employeeMap);
-				if(arChat[i-2].equals(dto.getName())) {
-					result += "<div class='msg right-msg'><div class='msg-img' style='background-image: url(/resources/file/profile/"+profile+")'></div><div class='msg-bubble'><div class='msg-info'><div class='msg-info-name'>"+ arChat[i-2] +"</div><div class='msg-info-time'>"+arChat[i]+"</div></div><div class='msg-text'>"+arChat[i-1]+"</div></div></div>";
+			if(i%4==3) {
+				if(arChat[i-3].equals(dto.getName())) {
+					result += "<div class='msg right-msg'><div class='msg-img' style='background-image: url(/resources/file/profile/"+arChat[i-2]+")'></div><div class='msg-bubble'><div class='msg-info'><div class='msg-info-name'>"+ arChat[i-3] +"</div><div class='msg-info-time'>"+arChat[i]+"</div></div><div class='msg-text'>"+arChat[i-1]+"</div></div></div>";
 				}else {
-					result += "<div class='msg left-msg'><div class='msg-img' style='background-image: url(/resources/file/profile/"+profile+")'></div><div class='msg-bubble'><div class='msg-info'><div class='msg-info-name'>"+arChat[i-2]+"</div><div class='msg-info-time'>"+arChat[i]+"</div></div><div class='msg-text'>"+arChat[i-1]+"</div></div></div>";
+					result += "<div class='msg left-msg'><div class='msg-img' style='background-image: url(/resources/file/profile/"+arChat[i-2]+")'></div><div class='msg-bubble'><div class='msg-info'><div class='msg-info-name'>"+arChat[i-3]+"</div><div class='msg-info-time'>"+arChat[i]+"</div></div><div class='msg-text'>"+arChat[i-1]+"</div></div></div>";
 				}
 			}
 		}

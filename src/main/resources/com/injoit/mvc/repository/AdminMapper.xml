@@ -101,7 +101,7 @@
 		select no from emp_chat where roomname=#{roomname} and employeenum=#{employeenum}
 	</select>
 	<select id="inRoomInfo" parameterType="hashmap" resultType="chatDTO">
-		SELECT ec.*, emp.name
+		SELECT ec.*, emp.name, emp.profile
 		FROM emp_chat ec
 		JOIN employee emp ON ec.employeenum = emp.employeenum
 		WHERE ec.roomname = #{roomname} and ec.employeenum=#{employeenum}

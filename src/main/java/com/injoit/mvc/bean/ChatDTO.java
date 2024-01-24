@@ -10,4 +10,5 @@ public class ChatDTO {
 	private int noread;
 	private int isjoin;
 	private String name;
+	private String profile;
 }

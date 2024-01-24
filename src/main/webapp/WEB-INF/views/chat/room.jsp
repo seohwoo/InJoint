@@ -20,7 +20,7 @@
 				}
 				const msgerChat = get(".msger-chat");
 				// 문서 전체의 스크롤바를 가장 아래로 이동
-				var socket = io.connect("http://${ip}:9999");
+				var socket = io.connect("http://${ip}:9898");
 				var joincnt = '${dto.isjoin}';
 				console.log('시작 : '+joincnt);
 				msgerChat.scrollTop = msgerChat.scrollHeight;
@@ -63,14 +63,14 @@
 				socket.on("response", function (message) {
 					var arr = message.msg.split(',');
 					var side = "left";
-					var img = '';
+					var img = arr[1];
 					// 마지막 빈 문자열 제거
 					if (arr[arr.length - 1] === '') {
 					  arr.pop();
 					}
 					if(arr[0] === `${dto.name}`) {
 						side = "right";
-						img = '';
+						img = arr[1];
 					}
 					var msgHTML =
 						  '<div class=\'msg ' + side + '-msg\'>' +
@@ -79,9 +79,9 @@
 						  '  <div class=\'msg-bubble\'>' +
 						  '    <div class=\'msg-info\'>' +
 						  '      <div class=\'msg-info-name\'>' + arr[0] + '</div>' +
-						  '      <div class=\'msg-info-time\'>' + arr[2] + '</div>' +
+						  '      <div class=\'msg-info-time\'>' + arr[3] + '</div>' +
 						  '    </div>' +
-						  '    <div class=\'msg-text\'>' + arr[1] + '</div>' +
+						  '    <div class=\'msg-text\'>' + arr[2] + '</div>' +
 						  '  </div>' + 
 						  '</div>';
 					$("#msgs").append(msgHTML);
@@ -99,7 +99,7 @@
 						};
 						var formattedTime = new Intl.DateTimeFormat('ko-KR', options).format(currentDate);
 						msgerChat.scrollTop = msgerChat.scrollHeight;
-						socket.emit("chatMsg", { msg: '${dto.name}' + "," + m + "," + formattedTime +"," , chatno : '${dto.no}', roomname: '${dto.roomname}' });
+						socket.emit("chatMsg", { msg: '${dto.name}' + "," + '${dto.profile}' + "," + m + "," + formattedTime +"," , chatno : '${dto.no}', roomname: '${dto.roomname}' });
 					}
 				});
 				$(document).ready(function () {
@@ -107,26 +107,6 @@
 						$('#chat').val('');
 					});
 				});
-				$(window).on('beforeunload', function (e) {
-			        var isReloading = performance.navigation.type === 1;
-			        if (isReloading) {
-			        	socket.on("out", function (out) {
-							$.ajax({
-			                    type: 'POST',
-			                    url: '/chat/updateJoin',
-			                    data: {
-			                    		joincnt: joincnt,
-			                    		chatno: '${dto.no}',
-			                    		updown: 0
-			                    	},
-				                success: function(response) {
-				                	joincnt = parseInt(response);
-									console.log('나감 : '+joincnt);
-				                } 	
-			                });	
-						});
-			        }
-			    });
 			});
 		</script>
 	</head>

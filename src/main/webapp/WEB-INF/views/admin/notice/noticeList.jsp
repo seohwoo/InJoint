@@ -75,40 +75,36 @@
                         <div class="card-body">
                             <div class="table-responsive">
                             <c:if test="${isAdmin}">
-								<h1 style="margin-bottom: 30px;">사원관리</h1>
+								<h1 style="margin-bottom: 30px;">공지게시판</h1>
 								<c:if test="${cnt==0}">
-									<h1>사원없음..🙄🙄</h1>
+									<h1>아직 공지가 없어요..😭😭</h1>
 								</c:if>
 								<c:if test="${cnt>0}">
                                 <table border="1" class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>번호</th>
-                                            <th>부서</th>
-                                            <th>직급</th>
-                                            <th>성명</th>
-                                            <th>사번</th>
-                                            <th>입사일</th>
-                                            <th>연락처</th>
-                                            <th>비고</th>
-                                        </tr>
+						     				<td>번호</td>
+						     				<td>제목</td>
+						     				<td>작성자</td>
+						     				<td>작성날짜</td>
+						     				<td>조회수</td>
+		     							</tr>
                                     </thead>
                                     <tbody>
-                                    <c:forEach var="dto" items="${employeeList}" varStatus="loopStatus">
-										<c:set var="cnt" value="${employeeList.size() - loopStatus.index}" />
-                                        <tr>
-                                            <td>${cnt}</td>
-											<td>${dto.departname}</td>
-											<td>${dto.position}</td>
-											<td>${dto.name}</td>
-											<td>${dto.employeenum}</td>
-											<td>
-												<fmt:formatDate value="${dto.reg}" dateStyle="long" type="date"/>
-											</td>
-											<td>${dto.phone}</td>
-											<td></td>
-                                        </tr>
-                                        </c:forEach>
+                                    <c:forEach var="dto" items="${noticeList}" varStatus="loopStatus">
+					     				<c:set var="num" value="${noticeList.size() - loopStatus.index}" />
+					     				<tr>
+					     					<td>${num}</td>
+					     					<td>
+					     						<a href="/admin/notice/content?no=${dto.no}">${dto.title}</a>
+					     					</td>
+					     					<td>${dto.writer}</td>
+					     					<td>
+					     						<fmt:formatDate value="${dto.reg}" dateStyle="long" type="date"/>
+					     					</td>
+					     					<td>${dto.readcnt}</td>
+					     				</tr>
+					     			</c:forEach>
                                     </tbody>
                                 </table>
                                 </c:if>
