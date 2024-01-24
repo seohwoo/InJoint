@@ -1,16 +1,20 @@
 package com.injoit.mvc.repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
 import com.injoit.mvc.bean.CalendarDTO;
+import com.injoit.mvc.bean.EmpAttendanceDTO;
 import com.injoit.mvc.bean.Emp_voteDTO;
 import com.injoit.mvc.bean.EmployeeDTO;
 import com.injoit.mvc.bean.Vote_countDTO;
 import com.injoit.mvc.bean.Vote_queDTO;
 
 public interface EmployeeMapper {
+	public int myAttendanceCnt(HashMap<String, String> map);
+	public List<EmpAttendanceDTO> showMyAttendance(HashMap<String, String> map);
 	public int insertEmp(EmployeeDTO dto);
 	public void insertauth(@Param("userid") String id, @Param("auth") String auth);
 	public void createCal(String id);
