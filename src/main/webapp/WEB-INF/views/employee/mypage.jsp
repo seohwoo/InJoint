@@ -34,8 +34,8 @@
 			margin-left: 20px; 
 		}
 	</style>
-<body>
 </head>
+<body style="background-color: rgb(193 206 220 / 15%);">
   <!--  Body Wrapper -->
   <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
     data-sidebar-position="fixed" data-header-position="fixed">
@@ -66,8 +66,8 @@
       <div class="container-fluid">
         <!--  Row 1 -->
         <div class="row" style="display:flex; margin-bottom:50px;">
-	      <div style="flex:1; box-shadow:5px 0px 5px -5px gray;">
-	      	<h5>프로필</h5>
+	      <div style="flex:1; padding: 10px 0 0 0; border:1px solid lightgray; background-color:white; box-shadow:5px 0px 5px -5px gray;">
+	      	<h5 style="margin-left: 10px;">프로필</h5>
 	      	<div style="text-align:center;">
 	      	<img id="proImage" style="width:130px; margin-bottom:20px; cursor:pointer;" src="/resources/profile/${my.profile}" data-bs-toggle="modal" data-bs-target="#imageModal">
 	      	<div>
@@ -87,7 +87,7 @@
 	      	</div>
 	      </div>
 	      <div style="flex:3; padding-left:40px;">
-	    <div style="border:1px solid lightgray; border-radius:5px; padding: 12px; margin-bottom:30px;">
+	    <div style="border:1px solid lightgray; box-shadow: 1px 1px 4px -2px; background-color:white; border-radius:5px; padding: 12px; margin-bottom:30px;">
 	        <h5>기본정보</h5>
 	        <table>
 	            <tr>
@@ -112,7 +112,7 @@
 	        <hr/>
 	        <div><i class="fa fa-map-marker" style="width:15px;"></i>주소<input type="text" style="width:70%;" class="bo tr" name="addr1" value="${my.addr1} ${my.addr2}" readonly/></div>
 	    </div>
-	    <div style="border:1px solid lightgray; border-radius:5px; padding: 12px;">
+	    <div style="border:1px solid lightgray; box-shadow: 1px 1px 4px -2px; background-color:white; border-radius:5px; padding: 12px;">
 	        <h5>직원정보</h5>
 	        <div><i class="fa fa-newspaper-o" style="width:15px;"></i>부서번호<input type="text" class="bo tr" value="${my.departnum}" readonly/></div>
 	        <hr/>

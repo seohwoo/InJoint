@@ -244,4 +244,8 @@ public class EmployeeController {
 		model.addAttribute("check", chk);
 		return "employee/member/voteing";
 	}
+	@RequestMapping("table")
+	public String table() {
+		return "employee/table";
+	}
 }

@@ -143,6 +143,7 @@
 		}
   </script>
 </head>
+<body style="background-color: rgb(193 206 220 / 15%);">
 <!-- Body Wrapper -->
 <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
     data-sidebar-position="fixed" data-header-position="fixed">
@@ -179,22 +180,23 @@
 	        <ul class="list-unstyled row">
 	            <c:forEach var="vote" items="${vote}">
 	            <sec:authentication var="auth" property="principal"/>
-					<c:if test="${vote.employeenum == auth.dto.employeenum}">
-	            	<button onclick="window.location.href='/emp/delvote?no='+${vote.no}">삭제</button>
-				    </c:if>
-				    <li style="position:relative; padding: 0 !important; border-radius:5px; box-shadow:5px 4px 8px -5px gray; border:1px solid lightgray; margin-bottom: 20px; min-height: 300px; width: 70%; margin: 0 auto;">
+				    <li style="background-color:white; position:relative; padding: 0 !important; border-radius:5px; box-shadow:5px 4px 8px -5px gray; border:1px solid lightgray; margin-bottom: 20px; min-height: 300px; width: 70%; margin: 0 auto;">
 				        <input type="hidden" id="no" value="${vote.no}" name="no">
 					    <c:set var="formattedDate" value="${vote.enddate}" />
 	           			<fmt:formatDate pattern="yyyy/MM/dd" value="${formattedDate}" var="enddate" />
 				        <input type="hidden" id="employeenum" value="<sec:authentication property="principal.dto.employeenum"/>">
+	                	<c:if test="${vote.employeenum == auth.dto.employeenum}">
+		            	<button style="position: absolute; background-color:#F96666; color:white; border:none; padding: 3px 0; border-radius: 5px; right: 5px; top: 5px; width: 70px;" onclick="window.location.href='/emp/delvote?no='+${vote.no}">삭제</button>
+					    </c:if>
+	                	<div style="border-bottom: 1px solid lightgray; padding: 5px 5px; display:flex;">
+	                		<div style="border:2px solid #5D87FF; border-radius: 5px; color:#5D87FF; margin: 1.5px 5px 1.5px 1.5px;">
 	                	<c:if test="${enddate >= today}">
-	                	<div style="background-color: #E5E1DA; display:flex;">
-	                		<div style="border:1px solid red; border-radius: 5px; color:red; margin: 1.5px 5px 1.5px 1.5px;">진행중</div><div>${vote.title}</div></div>
+	                		진행중
 	                	</c:if>
 	                	<c:if test="${enddate < today}">
-	                	<div style="background-color: #E5E1DA; display:flex;">
-	                		<div style="border:1px solid red; border-radius: 5px; color:red; margin: 1.5px 5px 1.5px 1.5px;">투표마감</div><div>${vote.title}</div></div>
+	                		투표마감
 	                	</c:if>
+	                	</div><div style="font-weight: 500;">Q. ${vote.title}</div></div>
 	                	<c:if test="${vote.anonymous == 1}">
 	                		<div>익명 투표</div>
 	                	</c:if>
@@ -264,3 +266,5 @@
 </div>
 <script src="/resources/libs/jquery/dist/jquery.min.js"></script>
 <script src="/resources/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
