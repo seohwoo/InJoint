@@ -112,11 +112,20 @@
 		JOIN employee emp ON ec.employeenum = emp.employeenum
 		WHERE ec.roomname = #{roomname} and emp.name=#{name}
 	</select>
+	<select id="findNoReadCnt" parameterType="hashmap" resultType="int">
+		select count(*) from emp_chat where no=#{chatno} and isjoin=0
+	</select>
+	<update id="updateNoReadCnt" parameterType="hashmap">
+		update emp_chat set noread=noread+1 where no=#{chatno} and isjoin=0
+	</update>
+	<update id="updateNoReadCntZero" parameterType="hashmap">
+		update emp_chat set noread=0 where no=#{chatno} and employeenum=#{employeenum}
+	</update>
 	<select id="findJoinCnt" parameterType="hashmap" resultType="int">
 		select count(*) from emp_chat where roomname=#{roomname}
 	</select>
 	<update id="updateJoinCnt" parameterType="hashmap">
-		update emp_chat set isjoin=#{joincnt} where no=#{chatno}
+		update emp_chat set isjoin=#{joincnt} where no=#{chatno} and employeenum=#{employeenum}
 	</update>
 	<select id="noticeBoardCnt" resultType="int">
 		select count(*) from emp_noticeboard

@@ -28,6 +28,9 @@ public interface AdminMapper {
 	public int findChatNo(HashMap<String, String> map);
 	public ChatDTO inRoomInfo(HashMap<String, String> map);
 	public String findProfile(HashMap<String, String> map);
+	public int findNoReadCnt(HashMap<String, String> map);
+	public void updateNoReadCnt(HashMap<String, String> map);
+	public void updateNoReadCntZero(HashMap<String, String> map);
 	public int findJoinCnt(HashMap<String, String> map);
 	public void updateJoinCnt(HashMap<String, String> map);
 	public int noticeBoardCnt();

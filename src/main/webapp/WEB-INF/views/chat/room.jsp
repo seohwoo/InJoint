@@ -33,7 +33,8 @@
 		                    data: {
 		                    		joincnt: joincnt,
 		                    		chatno: '${dto.no}',
-		                    		updown: 1
+		                    		updown: 1,
+		                    		employeenum: '${dto.employeenum}'
 		                    	},
 			                success: function(response) {
 			                	joincnt = parseInt(response);
@@ -52,7 +53,8 @@
 	                    data: {
 	                    		joincnt: joincnt,
 	                    		chatno: '${dto.no}',
-	                    		updown: 0
+	                    		updown: 0,
+	                    		employeenum: '${dto.employeenum}'
 	                    	},
 		                success: function(response) {
 		                	joincnt = parseInt(response);
@@ -100,6 +102,18 @@
 						var formattedTime = new Intl.DateTimeFormat('ko-KR', options).format(currentDate);
 						msgerChat.scrollTop = msgerChat.scrollHeight;
 						socket.emit("chatMsg", { msg: '${dto.name}' + "," + '${dto.profile}' + "," + m + "," + formattedTime +"," , chatno : '${dto.no}', roomname: '${dto.roomname}' });
+						if(joincnt < '${maxJoinCnt}') {
+			                $.ajax({
+			                    type: 'POST',
+			                    url: '/chat/updateCount',
+			                    data: {
+			                    		chatno: '${dto.no}'
+			                    	},
+				                success: function(response) {
+				                	console.log("cntup");
+				                } 	
+			                });
+		            	}
 					}
 				});
 				$(document).ready(function () {
@@ -107,6 +121,11 @@
 						$('#chat').val('');
 					});
 				});
+				$(document).on('keydown', function(e) {
+				    if (e.key === 'F5' || (e.ctrlKey && e.key === 'r')) {
+				      e.preventDefault();
+				    }
+				  });
 			});
 		</script>
 	</head>

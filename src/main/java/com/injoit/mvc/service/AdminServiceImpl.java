@@ -213,16 +213,27 @@ public class AdminServiceImpl implements AdminService{
 			}
 		}
 	}
+	
+	@Override
+	public void changeNoreadCnt(int chatno) {
+		employeeMap.put("chatno", String.valueOf(chatno));
+		int isNoRead = mapper.findNoReadCnt(employeeMap);
+		if(isNoRead > 0) {
+			mapper.updateNoReadCnt(employeeMap);
+		}
+	}
 
 	@Override
-	public int changeJoinCnt(int joincnt, int chatno, int updown) {
+	public int changeJoinCnt(int joincnt, int chatno, int updown, String employeenum) {
 		if(updown==1) {
-			joincnt++;
+			joincnt=1;
 		}else {
-			joincnt--;
+			joincnt=0;
 		}
 		employeeMap.put("joincnt", String.valueOf(joincnt));
 		employeeMap.put("chatno", String.valueOf(chatno));
+		employeeMap.put("employeenum", employeenum);
+		mapper.updateNoReadCntZero(employeeMap);
 		mapper.updateJoinCnt(employeeMap);
 		return joincnt;
 	}
@@ -271,6 +282,6 @@ public class AdminServiceImpl implements AdminService{
 	public void deleteNotice(NoticeBoardDTO dto) {
 		mapper.deleteNotice(dto);
 	}
-	
+
 	
 }

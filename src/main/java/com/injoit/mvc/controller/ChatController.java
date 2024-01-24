@@ -42,16 +42,18 @@ public class ChatController {
 	
 	@PostMapping("/updateCount")
     @ResponseBody
-    public String updateCount(@RequestParam("cnt") int cnt, 
-    		@RequestParam("chatno") int chatno, @RequestParam("username") String username) {
-        return String.valueOf(cnt); 
+    public String updateCount(@RequestParam("chatno") int chatno) {
+		service.changeNoreadCnt(chatno);
+        return ""; 
     }
 	
 	@PostMapping("/updateJoin")
 	@ResponseBody
 	public String updateJoin(@RequestParam("joincnt") int joincnt, 
-			@RequestParam("chatno") int chatno, @RequestParam("updown") int updown) {
-		joincnt = service.changeJoinCnt(joincnt, chatno, updown);
+			@RequestParam("chatno") int chatno, 
+			@RequestParam("updown") int updown,
+			@RequestParam("employeenum") String employeenum) {
+		joincnt = service.changeJoinCnt(joincnt, chatno, updown, employeenum);
 		return String.valueOf(joincnt); 
 	}
 	
