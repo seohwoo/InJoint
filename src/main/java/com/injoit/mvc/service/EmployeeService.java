@@ -14,6 +14,7 @@ import com.injoit.mvc.bean.Vote_countDTO;
 import com.injoit.mvc.bean.Vote_queDTO;
 
 public interface EmployeeService {
+	public void MyAttendance(Model model, String employeenum, int pageNum);
 	public int insertEmp(EmployeeDTO dto, Model model);
 	public int confirmid(String id);
 	public void insertCal(CalendarDTO dto);

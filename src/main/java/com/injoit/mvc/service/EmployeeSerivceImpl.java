@@ -1,7 +1,11 @@
 package com.injoit.mvc.service;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -12,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.injoit.mvc.bean.CalendarDTO;
+import com.injoit.mvc.bean.EmpAttendanceDTO;
 import com.injoit.mvc.bean.Emp_voteDTO;
 import com.injoit.mvc.bean.EmployeeDTO;
 import com.injoit.mvc.bean.Vote_countDTO;
@@ -26,6 +31,43 @@ public class EmployeeSerivceImpl implements EmployeeService{
 	
 	@Autowired
 	PasswordEncoder encoder;
+	
+	@Autowired
+	private HashMap<String, String> employeeMap;
+	
+	@Autowired
+	private SimpleDateFormat simpleDateFormat;
+	
+	
+	//페이징
+	public void page(int pageSize, int pageNum, int cnt, HashMap map) {
+		int maxPageNum = (int) (cnt / pageSize) + (cnt % pageSize == 0 ? 0 : 1);
+		if(pageNum < 1) {
+			pageNum = 1;
+		}else if(pageNum > maxPageNum) {
+			pageNum = maxPageNum;
+		}
+		int start = (pageNum-1)*pageSize+1;
+		int end = pageNum * pageSize;
+		map.put("start", String.valueOf(start));
+		map.put("end", String.valueOf(end));
+		map.put("maxPageNum", String.valueOf(maxPageNum));
+	}
+	
+	@Override
+	public void MyAttendance(Model model, String employeenum, int pageNum) {
+		int pageSize = 10;
+		employeeMap.put("employeenum", employeenum);
+		int cnt = mapper.myAttendanceCnt(employeeMap);
+		List<EmpAttendanceDTO> list = Collections.EMPTY_LIST;
+		page(pageSize, pageNum, cnt, employeeMap);
+		if(cnt > 0) {
+			list = mapper.showMyAttendance(employeeMap);
+		}
+		model.addAttribute("cnt", cnt);
+		model.addAttribute("myAttendanceList", list);
+	}
+	
 
 	// 회원가입
 	@Override
@@ -229,6 +271,5 @@ public class EmployeeSerivceImpl implements EmployeeService{
 		}
 		mapper.delvote(no);
 	}
-	
-	
+
 } 

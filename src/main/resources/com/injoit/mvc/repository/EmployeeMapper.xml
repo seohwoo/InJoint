@@ -161,4 +161,25 @@
 	<select id="delimg" resultType="vote_count">
 		select img from vote_count where no=#{no}
 	</select>
+	
+	<select id="myAttendanceCnt" parameterType="hashmap" resultType="int">
+		select count(*) from emp_attendance where employeenum = #{employeenum}
+	</select>
+	
+	<select id="showMyAttendance" parameterType="hashmap" resultType="empAttendance">
+	<![CDATA[ 
+		SELECT ea.*, e.name
+			FROM (
+			    SELECT emp.*, ROWNUM r
+			    FROM (
+			        SELECT *
+			        FROM emp_attendance
+			    ) emp
+			    WHERE ROWNUM <= #{end} and employeenum = #{employeenum} order by onwork desc
+			) ea
+			JOIN employee e ON ea.employeenum = e.employeenum
+			WHERE ea.r >= #{start}
+		]]>	
+	</select>
+	
 </mapper>

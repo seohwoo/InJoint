@@ -34,6 +34,17 @@ public class EmployeeController {
 		return "employee/all";
 	}
 	
+	@RequestMapping("main")
+	public String main(Model model, String pageNum, Principal pri) {
+		if(pageNum==null) {
+			pageNum="1";
+		}
+		service.MyAttendance(model, pri.getName(), Integer.parseInt(pageNum));
+		EmployeeDTO dto = service.mypage(pri.getName());
+		model.addAttribute("my", dto);
+		return "employee/showMyEmployee";
+	}
+	
 	@RequestMapping("worker")
 	public String worker(Principal pri, Model model) {
 		//service.deldate();
