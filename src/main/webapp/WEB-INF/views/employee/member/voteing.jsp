@@ -17,7 +17,10 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
 <style>
     .bo {
         border: none;
@@ -126,6 +129,13 @@
 
 
 </style>
+    <script>
+    $(document).ready(function(){
+        $('#vote_per').click(function() {
+            $('#myModal').modal('show');
+        });
+    });
+    </script>
  <script>
   	function vote(num, no){
   		$.ajax({
@@ -177,10 +187,10 @@
             <fmt:formatDate value="${now}" pattern="yyyy/MM/dd" var="today" />
             <div class="row">
         	<div class="container">
-	        <ul class="list-unstyled row">
+	        <ul style="margin-top:50px;"class="list-unstyled row">
 	            <c:forEach var="vote" items="${vote}">
 	            <sec:authentication var="auth" property="principal"/>
-				    <li style="background-color:white; position:relative; padding: 0 !important; border-radius:5px; box-shadow:5px 4px 8px -5px gray; border:1px solid lightgray; margin-bottom: 20px; min-height: 300px; width: 70%; margin: 0 auto;">
+				    <li style="background-color:white; position:relative; padding: 0 !important; border-radius:5px; box-shadow:5px 4px 8px -5px gray; border:1px solid lightgray; margin-bottom: 20px; min-height: 300px; width: 80%; margin: 0 auto;">
 				        <input type="hidden" id="no" value="${vote.no}" name="no">
 					    <c:set var="formattedDate" value="${vote.enddate}" />
 	           			<fmt:formatDate pattern="yyyy/MM/dd" value="${formattedDate}" var="enddate" />
@@ -188,7 +198,7 @@
 	                	<c:if test="${vote.employeenum == auth.dto.employeenum}">
 		            	<button style="position: absolute; background-color:#F96666; color:white; border:none; padding: 3px 0; border-radius: 5px; right: 5px; top: 5px; width: 70px;" onclick="window.location.href='/emp/delvote?no='+${vote.no}">삭제</button>
 					    </c:if>
-	                	<div style="border-bottom: 1px solid lightgray; padding: 5px 5px; display:flex;">
+	                	<div style="height: 50px; border-bottom: 1px solid lightgray; padding: 10px 5px; display:flex;">
 	                		<div style="border:2px solid #5D87FF; border-radius: 5px; color:#5D87FF; margin: 1.5px 5px 1.5px 1.5px;">
 	                	<c:if test="${enddate >= today}">
 	                		진행중
@@ -196,9 +206,9 @@
 	                	<c:if test="${enddate < today}">
 	                		투표마감
 	                	</c:if>
-	                	</div><div style="font-weight: 500;">Q. ${vote.title}</div></div>
+	                	</div><div style="font-size: 20px; margin-left:10px; font-weight: 500;">Q. ${vote.title}</div></div>
 	                	<c:if test="${vote.anonymous == 1}">
-	                		<div>익명 투표</div>
+	                		<div style="margin: 10px;">익명 투표</div>
 	                	</c:if>
 				        <c:if test="${not empty vote.img}">
 				            <c:forEach var="vi" items="${vote.img}">
@@ -207,12 +217,12 @@
 				                	<c:if test="${enddate >= today}">
 					                	<td rowspan="2"><input type="radio" name="group_${vote.no}" <c:if test='${vi.num eq check}'>checked</c:if> onclick="vote('${vi.num}', '${vote.no}')" id="typevalue" value="${vi.typevalue}"></td>
 					                </c:if>	
-					                	<td style="width:100px;" rowspan="2"><img src="/resources/img/${vi.img}" style="width:80px; height:80px;"/></td> 
-					                	<td><input type="text" style="border: none;" value="${vi.typevalue}"/></td> 
-					                	<td>${vi.count} 명</td> 
+					                	<td style="width:100px;" rowspan="2"><img src="/resources/img/${vi.img}" style="border-radius:5px; width:100px; height:100px;"/></td> 
+					                	<td style="font-size:20px; padding-left: 40px;"><input type="text" style="border: none;" value="${vi.typevalue}"/></td> 
+					                	<td style="width:50px;">${vi.count} 명</td> 
 				                	</tr>
 				                	<tr>
-				                		<td colspan="2">
+				                		<td style="padding-left: 40px;" colspan="2">
 										    <div class="progress">
 										        <div class="progress-bar" role="progressbar" style="width: ${(vi.count/vote.allcount)*100}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
 										    </div>
@@ -221,41 +231,17 @@
 				                	</table>
 				            </c:forEach>
 				        </c:if>
-				        <div>총 ${vote.allcount} 명 참여</div>
+				        <div style="text-align: right; padding: 5px;">
+				        <c:if test="${vote.anonymous == 1}">
+				        총 ${vote.allcount} 명 참여
+				        </c:if>
+				        <c:if test="${vote.anonymous != 1}">
+				        <dl id="vote_per">총 ${vote.allcount} 명 참여 ></dl>
+				        </c:if>
+				        </div>
 				    </li>
 				</c:forEach>
 	        </ul>
-	        <div>
-	        <c:forEach var="name" items="${name}">
-	                	<div>${name.name}</div>
-	        </c:forEach>
-	        <c:forEach var="vote" items="${vote}">
-	        	<c:if test="${vote.anonymous != 1}">
-                <table style="width:90%; margin: 20px auto;">
-                	<tr>
-		        	<c:forEach var="vi" items="${vote.img}">
-					    <tr>
-					        <td><${vi.typevalue}> 투표한 사람</td>
-					        <c:choose>
-					            <c:when test="${not empty vi.img}">
-					                <c:forEach var="nameItem" items="${vi.name}">
-					                    <td>
-											<img src="/resources/profile/${nameItem.profile}" style="width:30px;"/>					                    	
-					                    	${nameItem.name}
-				                    	</td>
-					                </c:forEach>
-					            </c:when>
-					            <c:otherwise>
-					                <td>없음</td>
-					            </c:otherwise>
-					        </c:choose>
-					    </tr>
-					</c:forEach>
-                	</tr>
-               	</table>
-               	</c:if>
-            </c:forEach>	
-	        </div>
     	</div>
             </div>
             <div class="py-6 px-6 text-center">
@@ -264,6 +250,52 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">투표 참여 인원</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            	<c:forEach var="name" items="${name}">
+	                	<div>${name.name}</div>
+	        </c:forEach>
+	        <c:forEach var="vote" items="${vote}">
+		    <c:if test="${vote.anonymous != 1}">
+		        <table style="width:90%; margin: 20px auto;">
+		            <tr>
+		                <c:forEach var="vi" items="${vote.img}">
+		                    <td>
+		                        <${vi.typevalue}> 투표한 사람
+		                        <c:choose>
+		                            <c:when test="${not empty vi.img}">
+		                                <c:forEach var="nameItem" items="${vi.name}">
+		                                    <div>
+		                                        <img src="/resources/profile/${nameItem.profile}" style="width:30px;"/>
+		                                        ${nameItem.name}
+		                                    </div>
+		                                </c:forEach>
+		                            </c:when>
+		                            <c:otherwise>
+		                                <div style="height: 50px;">없음</div>
+		                            </c:otherwise>
+		                        </c:choose>
+		                    </td>
+		                </c:forEach>
+		            </tr>
+		        </table>
+		    </c:if>
+		</c:forEach>
+
+            
+            </div> 
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="/resources/libs/jquery/dist/jquery.min.js"></script>
 <script src="/resources/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
