@@ -34,6 +34,14 @@
 			padding: 8px 0;
 		}
     </style>
+    <script>
+    	function del(){
+    		var result = confirm("해당 게시글을 삭제하시겠습니까?");
+    		if(result){
+    			window.location.href = "/admin/notice/deletePro?no="+${dto.no};
+    		}
+    	}
+    </script>
 </head>
 
 <body  style="background-color: rgb(193 206 220 / 15%);" id="page-top">
@@ -83,7 +91,10 @@
 								<h1 style="margin-bottom: 30px;">게시글</h1>
 								<c:if test="${isAdmin}">
 					     			<a href="/admin/notice/update?no=${dto.no}">수정하기</a>
+					     			<div onclick="del();" >삭제하기</div>
+					     			<!--  
 					     			<a href="/admin/notice/delete?no=${dto.no}">삭제하기</a>
+					     			-->
 					     		</c:if>
 					     		<a href="/admin/notice/list">목록으로</a>
 						     	<table width="100%";>
