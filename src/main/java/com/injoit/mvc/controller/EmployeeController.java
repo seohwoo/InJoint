@@ -34,7 +34,7 @@ public class EmployeeController {
 		return "employee/all";
 	}
 	
-	@RequestMapping("main")
+	@RequestMapping("mainn")
 	public String main(Model model, String pageNum, Principal pri) {
 		if(pageNum==null) {
 			pageNum="1";

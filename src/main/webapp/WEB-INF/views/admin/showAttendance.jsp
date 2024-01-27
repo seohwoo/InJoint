@@ -94,10 +94,10 @@
 					</div>
 				</div>
                 <!-- Begin Page Content -->
-                <div class="container-fluid" style="z-index:100;">
+                <div class="container-fluid">
                     <!-- DataTales Example -->
-                    <div class="card shadow mb-4"style="z-index:100; margin-top:50px;">
-                        <div class="card-body" style="z-index:100; position: relative;">
+                    <div class="card shadow mb-4"style="margin-top:50px;">
+                        <div class="card-body" style="position: relative;">
                             <div class="table-responsive">
                             <c:if test="${isAdmin}">
 						     	<h1 style="margin-bottom: 30px;">근태관리</h1>

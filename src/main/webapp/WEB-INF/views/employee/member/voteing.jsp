@@ -126,7 +126,9 @@
     #btn2{
     	width: 100%;
     }
-
+	.modal-body{
+		padding: 0 16px 16px 16px !important;
+	}
 
 </style>
     <script>
@@ -236,7 +238,7 @@
 				        총 ${vote.allcount} 명 참여
 				        </c:if>
 				        <c:if test="${vote.anonymous != 1}">
-				        <dl id="vote_per">총 ${vote.allcount} 명 참여 ></dl>
+				        <dl id="vote_per" style="margin-right: 10px;">총 ${vote.allcount} 명 참여 ></dl>
 				        </c:if>
 				        </div>
 				    </li>
@@ -263,28 +265,24 @@
 	        </c:forEach>
 	        <c:forEach var="vote" items="${vote}">
 		    <c:if test="${vote.anonymous != 1}">
-		        <table style="width:90%; margin: 20px auto;">
-		            <tr>
+		        <div>
 		                <c:forEach var="vi" items="${vote.img}">
-		                    <td>
-		                        <${vi.typevalue}> 투표한 사람
-		                        <c:choose>
-		                            <c:when test="${not empty vi.img}">
+		                        <div style="margin-top: 30px;">[${vi.typevalue}] : ${vi.count}명</div><hr>
+		                            <c:if test="${not empty vi.img}">
+		                            <div style="display: grid; grid-template-columns: repeat(3, 1fr);">
 		                                <c:forEach var="nameItem" items="${vi.name}">
-		                                    <div>
+		                                	<div>
 		                                        <img src="/resources/profile/${nameItem.profile}" style="width:30px;"/>
 		                                        ${nameItem.name}
-		                                    </div>
+		                                    </div>    
 		                                </c:forEach>
-		                            </c:when>
-		                            <c:otherwise>
+		                            </div>
+		                            </c:if>
+		                            <c:if test="${vi.img == null}">
 		                                <div style="height: 50px;">없음</div>
-		                            </c:otherwise>
-		                        </c:choose>
-		                    </td>
+		                            </c:if>
 		                </c:forEach>
-		            </tr>
-		        </table>
+		        </div>
 		    </c:if>
 		</c:forEach>
 

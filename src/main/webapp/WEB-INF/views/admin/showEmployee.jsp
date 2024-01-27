@@ -160,9 +160,10 @@
 	</div>
 	</div>
 	</div>
+	<script src="/resources/libs/jquery/dist/jquery.min.js"></script>
+<script src="/resources/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Bootstrap core JavaScript-->
     <script src="/resources/table/vendor/jquery/jquery.min.js"></script>
-    <script src="/resources/table/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
     <script src="/resources/table/vendor/jquery-easing/jquery.easing.min.js"></script>
@@ -176,7 +177,6 @@
 
     <!-- Page level custom scripts -->
     <script src="/resources/table/js/demo/datatables-demo.js"></script>
-
 </body>
 
 </html>

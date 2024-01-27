@@ -22,7 +22,7 @@ public class CustomLoginHandler implements AuthenticationSuccessHandler {
 		});
 		String rdir = "/emp/all";
 		if(roleNames.contains("ROLE_ADMIN")) {
-			rdir = "/emp/admin";
+			rdir = "/emp/worker";
 		}else if(roleNames.contains("ROLE_MEMBER")) {
 			rdir = "/emp/worker";
 		}
