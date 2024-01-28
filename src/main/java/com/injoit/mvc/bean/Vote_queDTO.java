@@ -21,5 +21,5 @@ public class Vote_queDTO {
 	private List<ListDTO> img;
 	private int allcount;
 	private int check;
-//	private Vote_countDTO vc;
+	private Vote_countDTO vc;
 }

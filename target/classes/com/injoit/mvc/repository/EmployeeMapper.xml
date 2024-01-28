@@ -182,4 +182,47 @@
 		]]>	
 	</select>
 	
+	<select id="highvote">
+		select no from(
+			select no, count(*) as total_count
+				from emp_vote
+				where no in(
+					select no from vote_que where enddate >= sysdate
+				)
+			    group by no
+			    order by total_count desc
+			)
+			fetch first 1 row only
+	</select>
+	<resultMap type="vote_que" id="vq">
+		<result column="no" property="no"/>
+		<result column="title" property="title"/>
+		<result column="enddate" property="enddate"/>
+		<result column="typenum" property="typenum"/>
+		<result column="employeenum" property="employeenum"/>
+	</resultMap>
+	<resultMap type="vote_count" id="vc">
+		<result column="num" property="num"/>
+		<result column="no" property="no"/>
+		<result column="typevalue" property="typevalue"/>
+		<result column="img" property="img"/>
+		<collection property="vq" resultMap="vq"/>
+	</resultMap>
+	
+	<select id="highvoting" resultType="vote_count" resultMap="vc">
+		select * from vote_que q
+		join vote_count c on q.no = c.no
+		where q.no = #{no}
+	</select>
+	<select id="Attendance" resultType="empAttendance">
+		SELECT *
+			FROM emp_attendance
+			WHERE employeenum = #{employeenum}
+			  AND (onwork BETWEEN sysdate - 7 AND sysdate and offwork BETWEEN sysdate - 7 AND sysdate)
+	</select>
+	
+	<update id="vocount">
+		update vote_count set vocount=#{vocount} where num = #{num}
+	</update>
+	
 </mapper>

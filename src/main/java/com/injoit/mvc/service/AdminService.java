@@ -1,7 +1,10 @@
 package com.injoit.mvc.service;
 
+import java.util.List;
+
 import org.springframework.ui.Model;
 
+import com.injoit.mvc.bean.ChatDTO;
 import com.injoit.mvc.bean.NoticeBoardDTO;
 
 public interface AdminService {
@@ -22,4 +25,6 @@ public interface AdminService {
 	public void updateToForm(Model model, String no);
 	public void updateNotice(NoticeBoardDTO dto);
 	public void deleteNotice(NoticeBoardDTO dto);
+	public List<ChatDTO> noreadChat(String employeenum);
+	public int myChatCnt(String employeenum);
 }

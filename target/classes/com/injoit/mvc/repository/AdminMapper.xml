@@ -69,8 +69,18 @@
 		select count(*) from emp_chat where employeenum=#{employeenum}
 	</select>
 	
+	<select id="myChatCnt">
+		<![CDATA[
+		select count(*) from emp_chat where employeenum=#{employeenum} and noread > 0
+		]]>
+	</select>
+	
 	<select id="findMyChatRoom" parameterType="String" resultType="chatDTO">
 		select * from emp_chat where employeenum=#{employeenum}
+	</select>
+	
+	<select id="noreadChat" resultType="chatDTO">
+		select * from emp_chat where employeenum=#{employeenum} order by noread desc
 	</select>
 	
 	<select id="findAllEmpToChat" parameterType="String" resultType="employee">

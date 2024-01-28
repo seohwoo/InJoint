@@ -124,9 +124,6 @@
 	    </div>
 	</div>
         </div>
-        <div class="py-6 px-6 text-center">
-          <p class="mb-0 fs-4">Design and Developed by <a href="https://adminmart.com/" target="_blank" class="pe-1 text-primary text-decoration-underline">AdminMart.com</a> Distributed by <a href="https://themewagon.com">ThemeWagon</a></p>
-        </div>
       </div>
     </div>
   </div>
@@ -175,6 +172,7 @@
                     <label for="exampleInputEmail1" class="form-label">생년월일</label>
                     <input type="date" name="birth" class="form-control" value="<fmt:formatDate pattern='yyyy-MM-dd' value='${my.birth}'/>" id="exampleInputEmail1" aria-describedby="emailHelp">
                   </div>
+                  <div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>
             	<div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">주소</label>
                     <div style="display:flex;">
@@ -273,6 +271,23 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 	<script src="/resources/libs/jquery/dist/jquery.min.js"></script>
 	<script src="/resources/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+		<script src="/resources/libs/jquery/dist/jquery.min.js"></script>
+<script src="/resources/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap core JavaScript-->
+    <script src="/resources/table/vendor/jquery/jquery.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="/resources/table/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="/resources/table/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="/resources/table/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/resources/table/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="/resources/table/js/demo/datatables-demo.js"></script>
 </body>
 
 </html>

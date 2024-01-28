@@ -46,4 +46,8 @@ public interface EmployeeMapper {
 	public List<EmployeeDTO> votename(int num);
 	public void delvote(int no);
 	public List<Vote_countDTO> delimg(int no);
+	public int highvote();
+	public List<Vote_countDTO> highvoting(int no);
+	public List<EmpAttendanceDTO> Attendance(String employeenum);
+	public void vocount(@Param("vocount")int vocount, @Param("num") int num);
 }

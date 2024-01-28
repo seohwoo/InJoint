@@ -2,6 +2,8 @@ package com.injoit.mvc.controller;
 
 import java.io.File;
 import java.security.Principal;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,10 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.injoit.mvc.bean.ChatDTO;
+import com.injoit.mvc.bean.EmpAttendanceDTO;
 import com.injoit.mvc.bean.Emp_voteDTO;
 import com.injoit.mvc.bean.EmployeeDTO;
 import com.injoit.mvc.bean.Vote_countDTO;
 import com.injoit.mvc.bean.Vote_queDTO;
+import com.injoit.mvc.service.AdminService;
 import com.injoit.mvc.service.EmployeeService;
 
 
@@ -28,6 +33,9 @@ public class EmployeeController {
 	
 	@Autowired
 	private EmployeeService service;
+	
+	@Autowired
+	private AdminService adservice;
 	
 	@RequestMapping("all")
 	public String all() {
@@ -47,9 +55,29 @@ public class EmployeeController {
 	
 	@RequestMapping("worker")
 	public String worker(Principal pri, Model model) {
+		int no = service.highvote();
+		List<Vote_countDTO> vote = service.highvoting(no);
+		int chk = service.noChk(no, pri.getName());
+		List<EmpAttendanceDTO> emp = service.Attendance(pri.getName());
+		int cnt = adservice.myChatCnt(pri.getName());
 		//service.deldate();
 		EmployeeDTO dto = service.mypage(pri.getName());
+		List<ChatDTO> list = adservice.noreadChat(pri.getName());
+		LocalDate today = LocalDate.now();
+
+		DateTimeFormatter to = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		String to_day = today.format(to);
+		LocalDate seven = today.minusDays(7);
+		String seven_day = seven.format(to);
+
+		model.addAttribute("seven", seven_day);
+        model.addAttribute("year", to_day);
+		model.addAttribute("emp", emp);
+		model.addAttribute("vote", vote);
 		model.addAttribute("my", dto);
+		model.addAttribute("list", list);
+		model.addAttribute("cnt", cnt);
+		model.addAttribute("chk", chk);
 		return "employee/worker";
 	}
 	@RequestMapping("admin")
@@ -174,7 +202,7 @@ public class EmployeeController {
 	}
 	@RequestMapping("/member/vote")
 	public String vote(Model model, Principal pri) {
-		service.deldate();
+//		service.deldate();
 		EmployeeDTO dto = service.mypage(pri.getName());
 		List<EmployeeDTO> name = null;
 		//List<Vote_countDTO> vote = service.vote_que();
@@ -197,6 +225,7 @@ public class EmployeeController {
 		}
 		model.addAttribute("vote", vq);
 		model.addAttribute("my", dto);
+		
 		return "employee/member/vote";
 	}
 

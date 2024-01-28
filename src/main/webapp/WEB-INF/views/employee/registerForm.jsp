@@ -219,7 +219,7 @@
                     <label for="exampleInputEmail1" class="form-label">휴대폰번호</label>
                     <input type="tel" name="phone" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required="required">
                   </div>
-					<div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>
+					<div id="map" style="width:100%;height:300px;margin-top:10px;display:none"></div>
                   <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">주소</label>
                     <div style="display:flex;">

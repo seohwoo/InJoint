@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
+<%@ page import="java.time.LocalDate" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,9 +12,22 @@
   <title>회사원</title>
   <link rel="shortcut icon" type="image/png" href="/resources/assets/images/logos/favicon.png" />
   <link rel="stylesheet" href="/resources/assets/css/styles.min.css" />
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- 차트 링크 -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <style>
+  	#tb td{
+  		border: 1px solid lightgray;
+  		padding:8px;
+  	}
+  	#tb {
+  		border-radius: 5px;
+  	}
+  </style>
 </head>
 
-<body>
+<body style="background-color: rgb(193 206 220 / 15%);">
   <!--  Body Wrapper -->
   <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
     data-sidebar-position="fixed" data-header-position="fixed">
@@ -26,91 +43,104 @@
         <!--  Row 1 -->
         <div class="row">
           <div class="col-lg-8 d-flex align-items-strech">
-            <div class="card w-100">
-              <div class="card-body">
-                <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
-                  <div class="mb-3 mb-sm-0">
-                    <h5 class="card-title fw-semibold">Sales Overview</h5>
-                  </div>
-                  <div>
-                    <select class="form-select">
-                      <option value="1">March 2023</option>
-                      <option value="2">April 2023</option>
-                      <option value="3">May 2023</option>
-                      <option value="4">June 2023</option>
-                    </select>
-                  </div>
+    <div class="card w-100">
+        <div class="card-body">
+            <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
+                <div class="mb-3 mb-sm-0">
+                    <h5 class="card-title fw-semibold">나의 출/퇴근 기록</h5>
                 </div>
-                <div id="chart"></div>
-              </div>
             </div>
-          </div>
+            <div>
+            <h4 style="text-align: center;">${seven} ~ ${year}</h4>
+                    <div>
+                    <table id="tb" border="1" width="100%;">
+                        <c:forEach var="emp" items="${emp}">
+                        	<tr>
+                        		<td>
+                                <label name="onwork" style="font-size: 12px;"><b>출근 시간</b></label> 
+                                <div id="onwork" style="text-align: center;"><fmt:formatDate value="${emp.onwork}" dateStyle="long" type="both"/></div>
+                                </td>
+                                <td>
+                                <label name="offwork" style="font-size: 12px;"><b>퇴근 시간</b></label> 
+                                <div id="offwork" style="text-align: center;"><fmt:formatDate value="${emp.offwork}" dateStyle="long" type="both"/></div>
+                        		</td>
+                        	</tr>
+                        </c:forEach>
+                    </table>
+                    </div>
+                    
+            </div>
+        </div>
+    </div>
+</div>
           <div class="col-lg-4">
             <div class="row">
               <div class="col-lg-12">
                 <!-- Yearly Breakup -->
                 <div class="card overflow-hidden">
+	            <a href="/emp/member/vote" style="text-decoration: none;">
                   <div class="card-body p-4">
-                    <h5 class="card-title mb-9 fw-semibold">Yearly Breakup</h5>
+                    <h4 class="card-title mb-9 fw-semibold">참여율 높은 투표</h5>
                     <div class="row align-items-center">
                       <div class="col-8">
-                        <h4 class="fw-semibold mb-3">$36,358</h4>
+                        <h5 class="fw-semibold mb-3">
+                        	 <c:forEach var="vote" items="${vote}" end="0">
+		                      	질문 : ${vote.vq.title}
+		                      </c:forEach>
+                        </h5>
+                          <c:forEach var="vote" items="${vote}">
                         <div class="d-flex align-items-center mb-3">
-                          <span
-                            class="me-1 rounded-circle bg-light-success round-20 d-flex align-items-center justify-content-center">
-                            <i class="ti ti-arrow-up-left text-success"></i>
-                          </span>
-                          <p class="text-dark me-1 fs-3 mb-0">+9%</p>
-                          <p class="fs-3 mb-0">last year</p>
+							<img src="/resources/img/${vote.img}" style="margin-right:15px; width:30px; height: 30px; border-radius: 50%;"/>                          	
+                          	${vote.typevalue}
                         </div>
+                          </c:forEach>
                         <div class="d-flex align-items-center">
-                          <div class="me-4">
-                            <span class="round-8 bg-primary rounded-circle me-2 d-inline-block"></span>
-                            <span class="fs-2">2023</span>
-                          </div>
                           <div>
-                            <span class="round-8 bg-light-primary rounded-circle me-2 d-inline-block"></span>
-                            <span class="fs-2">2023</span>
                           </div>
-                        </div>
-                      </div>
-                      <div class="col-4">
-                        <div class="d-flex justify-content-center">
-                          <div id="breakup"></div>
                         </div>
                       </div>
                     </div>
+                          <div class="me-4" style="width:100%;">
+                          <c:if test="${chk == 0}">
+                            <span class="round-8 bg-primary rounded-circle me-2 d-inline-block"></span>
+                            <span class="fs-2">해당 투표에 참여하지 않은 회원입니다!</span>
+                          </c:if>
+                          <c:if test="${chk > 0}">
+                            <span class="round-8 bg-primary rounded-circle me-2 d-inline-block"></span>
+                            <span class="fs-2">해당 투표에 참여한 회원입니다!</span>
+                          </c:if>
+                          </div>
                   </div>
+              </a>
                 </div>
               </div>
               <div class="col-lg-12">
                 <!-- Monthly Earnings -->
                 <div class="card">
                   <div class="card-body">
-                    <div class="row alig n-items-start">
-                      <div class="col-8">
-                        <h5 class="card-title mb-9 fw-semibold"> Monthly Earnings </h5>
-                        <h4 class="fw-semibold mb-3">$6,820</h4>
-                        <div class="d-flex align-items-center pb-1">
-                          <span
-                            class="me-2 rounded-circle bg-light-danger round-20 d-flex align-items-center justify-content-center">
-                            <i class="ti ti-arrow-down-right text-danger"></i>
-                          </span>
-                          <p class="text-dark me-1 fs-3 mb-0">+9%</p>
-                          <p class="fs-3 mb-0">last year</p>
+                      <div>
+                        <h5 style="width:100%;" class="card-title mb-9 fw-semibold">안읽은 채팅방</h5>
+                        <div class="align-items-center pb-1">
+                        	<c:if test="${cnt == 0}">
+                        		<h5>안 읽은 채팅방이 없습니다!</h5>
+                        	</c:if>
+                        	<c:if test="${cnt > 0}">
+                         	<c:forEach var="list" items="${list}">
+                         	<table>
+                         		<c:if test="${list.noread > 0}">
+                         			<tr>
+					     				<td style="border-right: none;">
+					     					<a href="/chat/room?roomname=${list.roomname}&chatno=${list.no}">${list.roomname}</a>
+					     				</td>
+					     				<td style="border-left: none;"><div style="margin-left:10px; background-color: #5D87FF; color:white; border-radius: 50%; width: 20px; height: 20px; text-align: center; line-height: 20px;">${list.noread}</div></td>
+					     			</tr>
+                         		</c:if>
+                         	</table>	
+                         	</c:forEach>
+                        	</c:if>
                         </div>
                       </div>
-                      <div class="col-4">
-                        <div class="d-flex justify-content-end">
-                          <div
-                            class="text-white bg-secondary rounded-circle p-6 d-flex align-items-center justify-content-center">
-                            <i class="ti ti-currency-dollar fs-6"></i>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
                   </div>
-                  <div id="earning"></div>
                 </div>
               </div>
             </div>
