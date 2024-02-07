@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.injoit.mvc.bean.CalendarDTO;
+import com.injoit.mvc.bean.EmpAttendanceDTO;
 import com.injoit.mvc.bean.Emp_voteDTO;
 import com.injoit.mvc.bean.EmployeeDTO;
 import com.injoit.mvc.bean.Vote_countDTO;
@@ -40,4 +41,9 @@ public interface EmployeeService {
 	public void deldate();
 	public List<EmployeeDTO> votename(int num);
 	public void delvote(int no, String path);
+	public int highvote();	
+	public List<Vote_countDTO> highvoting(int no);
+	public List<EmpAttendanceDTO> Attendance(String employeenum);
+	public void vocount(int vocount, int num);
+	public int noChk( int no, String employeenum);
 }

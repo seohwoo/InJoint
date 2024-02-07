@@ -283,5 +283,16 @@ public class AdminServiceImpl implements AdminService{
 		mapper.deleteNotice(dto);
 	}
 
+	@Override
+	public List<ChatDTO> noreadChat(String employeenum) {
+		return mapper.noreadChat(employeenum);
+	}
+
+	@Override
+	public int myChatCnt(String employeenum) {
+		return mapper.myChatCnt(employeenum);
+	}
+	
+	
 	
 }

@@ -40,4 +40,6 @@ public interface AdminMapper {
 	public void insertNotice(NoticeBoardDTO dto);
 	public void updateNotice(NoticeBoardDTO dto);
 	public void deleteNotice(NoticeBoardDTO dto);
+	public List<ChatDTO> noreadChat(String employeenum);
+	public int myChatCnt(String employeenum);
 }

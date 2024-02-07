@@ -28,7 +28,7 @@
               <span class="hide-menu">Home</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="/emp/main" aria-expanded="false">
+              <a class="sidebar-link" href="/emp/mainn" aria-expanded="false">
                 <span>
                   <i class="ti ti-login"></i>
                 </span>
@@ -74,7 +74,7 @@
             <li class="sidebar-item">
               <a class="sidebar-link" href="/chat/list" aria-expanded="false">
                 <span>
-                  <i class="fa fa-calendar"></i> 
+                  <i class="fa fa-comments"></i> 
                 </span>
                 <span class="hide-menu">채팅</span>
               </a>
@@ -86,7 +86,7 @@
             <li class="sidebar-item">
               <a class="sidebar-link" href="/admin/showEmp" aria-expanded="false">
                 <span>
-                  <i class="fa fa-calendar"></i> 
+                  <i class="fa fa-id-card-o"></i> 
                 </span>
                 <span class="hide-menu">사원관리</span>
               </a>
@@ -94,7 +94,7 @@
             <li class="sidebar-item">
               <a class="sidebar-link" href="/admin/attendance" aria-expanded="false">
                 <span>
-                  <i class="fa fa-pie-chart"></i>
+                  <i class="fa fa-address-card-o"></i>
                 </span>
                 <span class="hide-menu">근태관리</span>
               </a>
@@ -102,7 +102,7 @@
             <li class="sidebar-item">
               <a class="sidebar-link" href="/admin/notice/list" aria-expanded="false">
                 <span>
-                  <i class="fa fa-pie-chart"></i>
+                  <i class="fa fa-pencil-square-o"></i>
                 </span>
                 <span class="hide-menu">공지게시판</span>
               </a>

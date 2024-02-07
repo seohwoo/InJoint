@@ -71,10 +71,10 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid" style="z-index:100;">
+                <div class="container-fluid">
                     <!-- DataTales Example -->
-                    <div class="card shadow mb-4"style="z-index:100; margin-top:50px;">
-                        <div class="card-body" style="z-index:100; position: relative;">
+                    <div class="card shadow mb-4"style="margin-top:50px;">
+                        <div class="card-body" style="position: relative;">
                             <div class="table-responsive">
 								<h1 style="margin-bottom: 30px;">출결관리</h1>
 								<c:if test="${cnt==0}">
@@ -151,9 +151,10 @@
 	</div>
 	</div>
 	</div>
+    	<script src="/resources/libs/jquery/dist/jquery.min.js"></script>
+<script src="/resources/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Bootstrap core JavaScript-->
     <script src="/resources/table/vendor/jquery/jquery.min.js"></script>
-    <script src="/resources/table/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
     <script src="/resources/table/vendor/jquery-easing/jquery.easing.min.js"></script>

@@ -272,4 +272,29 @@ public class EmployeeSerivceImpl implements EmployeeService{
 		mapper.delvote(no);
 	}
 
+	@Override
+	public int highvote() {
+		return mapper.highvote();
+	}
+
+	@Override
+	public List<Vote_countDTO> highvoting(int no) {
+		return mapper.highvoting(no);
+	}
+
+	@Override
+	public List<EmpAttendanceDTO> Attendance(String employeenum) {
+		return mapper.Attendance(employeenum);
+	}
+
+	@Override
+	public void vocount(int vocount, int num) {
+		mapper.vocount(vocount, num);
+	}
+
+	@Override
+	public int noChk(int no, String employeenum) {
+		return mapper.noChk(no, employeenum);
+	}
+
 } 

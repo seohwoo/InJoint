@@ -26,6 +26,7 @@ public class ChatController {
 	@RequestMapping("list")
 	public String ChatRoom(Model model, Principal pri) {
 		service.findMyChatRoom(model, pri.getName());
+		service.addChat(model, pri.getName());
 		EmployeeDTO dto = empService.mypage(pri.getName());
 		model.addAttribute("my", dto);
 		return "/chat/chatRoom";
