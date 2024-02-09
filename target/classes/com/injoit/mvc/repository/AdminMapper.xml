@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.injoit.mvc.repository.AdminMapper">
+	<select id="employeeCnt" resultType="int">
+		select count(*) from employee
+	</select>
+	<select id="showAllEmployee" parameterType="hashmap" resultType="employee">
+		<![CDATA[
+			SELECT e.*, d.departname
+			FROM (
+			    SELECT e.*, ROWNUM r
+			    FROM (
+			        SELECT *
+			        FROM employee
+			    ) e
+			    WHERE ROWNUM <= #{end}
+			) e
+			JOIN department d ON e.departnum = d.departnum
+			WHERE e.r >= #{start}
+		]]>
+	</select>
+	<select id="isCommute" parameterType="hashmap" resultType="int">
+		SELECT count(*)
+		FROM emp_attendance
+		WHERE TRUNC(onwork) = TO_DATE(#{day}, 'YYYY/MM/DD')
+  		and employeenum=#{employeenum}
+	</select>
+	<select id="isOffWork" parameterType="hashmap" resultType="int">
+		SELECT count(*)
+		FROM emp_attendance
+		WHERE TRUNC(onwork) = TO_DATE(#{day}, 'YYYY/MM/DD')
+  		and employeenum=#{employeenum} and offwork is not null
+	</select>
+	<insert id="onWorkEmp" parameterType="hashmap">
+		insert into emp_attendance(employeenum, onwork) 
+		values(#{employeenum}, sysdate)
+	</insert>
+	<update id="offWorkEmp" parameterType="hashmap">
+		update emp_attendance set offwork=sysdate where employeenum=#{employeenum}
+	</update>
+	<select id="empAttendanceCnt" parameterType="hashmap" resultType="int">
+		SELECT count(*) FROM emp_attendance
+        WHERE TRUNC(onwork) = TO_DATE(#{day}, 'YYYY/MM/DD')
+	</select>
+	<select id="empOnWorkCnt" parameterType="hashmap" resultType="int">
+		SELECT count(*) FROM emp_attendance
+        WHERE TRUNC(onwork) = TO_DATE(#{day}, 'YYYY/MM/DD') and offwork is null
+	</select>
+	<select id="showEmpAttendance" parameterType="hashmap" resultType="empAttendance">
+		<![CDATA[
+			SELECT ea.*, e.name
+			FROM (
+			    SELECT emp.*, ROWNUM r
+			    FROM (
+			        SELECT *
+			        FROM emp_attendance
+			        WHERE TRUNC(onwork) = TO_DATE(#{day}, 'YYYY/MM/DD')
+			    ) emp
+			    WHERE ROWNUM <= #{end}
+			) ea
+			JOIN employee e ON ea.employeenum = e.employeenum
+			WHERE ea.r >= #{start}
+		]]>
+	</select>
+	
+	<select id="myChatRoomCnt" parameterType="String" resultType="int">
+		select count(*) from emp_chat where employeenum=#{employeenum}
+	</select>
+	
+	<select id="myChatCnt">
+		<![CDATA[
+		select count(*) from emp_chat where employeenum=#{employeenum} and noread > 0
+		]]>
+	</select>
+	
+	<select id="findMyChatRoom" parameterType="String" resultType="chatDTO">
+		select * from emp_chat where employeenum=#{employeenum}
+	</select>
+	
+	<select id="noreadChat" resultType="chatDTO">
+		select * from emp_chat where employeenum=#{employeenum} order by noread desc
+	</select>
+	
+	<select id="findAllEmpToChat" parameterType="String" resultType="employee">
+		<![CDATA[
+			SELECT e.*, d.departname
+			FROM (
+			    SELECT emp.*
+			    FROM (
+			        SELECT *
+			        FROM employee
+			        WHERE employeenum <> #{employeenum}  
+			    ) emp
+			) e
+			JOIN department d ON e.departnum = d.departnum
+		]]>
+	</select>
+	<select id="isRoom" parameterType="hashmap" resultType="int">
+		select count(*) from emp_chat 
+		where roomname=#{roomname} and employeenum=#{employeenum}
+	</select>
+	<insert id="insertRoomToMe" parameterType="hashmap">
+		insert into emp_chat(no, employeenum, roomname) values(emp_chat_seq.nextval, #{employeenum}, #{roomname})
+	</insert>
+	<insert id="insertRoomToOther" parameterType="hashmap">
+		insert into emp_chat(no, employeenum, roomname) values(emp_chat_seq.currval, #{employeenum}, #{roomname})
+	</insert>
+	<select id="findChatNo" parameterType="hashmap" resultType="int">
+		select no from emp_chat where roomname=#{roomname} and employeenum=#{employeenum}
+	</select>
+	<select id="inRoomInfo" parameterType="hashmap" resultType="chatDTO">
+		SELECT ec.*, emp.name, emp.profile
+		FROM emp_chat ec
+		JOIN employee emp ON ec.employeenum = emp.employeenum
+		WHERE ec.roomname = #{roomname} and ec.employeenum=#{employeenum}
+	</select>
+	<select id="findProfile" parameterType="hashmap" resultType="String">
+		SELECT emp.profile
+		FROM emp_chat ec
+		JOIN employee emp ON ec.employeenum = emp.employeenum
+		WHERE ec.roomname = #{roomname} and emp.name=#{name}
+	</select>
+	<select id="findNoReadCnt" parameterType="hashmap" resultType="int">
+		select count(*) from emp_chat where no=#{chatno} and isjoin=0
+	</select>
+	<update id="updateNoReadCnt" parameterType="hashmap">
+		update emp_chat set noread=noread+1 where no=#{chatno} and isjoin=0
+	</update>
+	<update id="updateNoReadCntZero" parameterType="hashmap">
+		update emp_chat set noread=0 where no=#{chatno} and employeenum=#{employeenum}
+	</update>
+	<select id="findJoinCnt" parameterType="hashmap" resultType="int">
+		select count(*) from emp_chat where roomname=#{roomname}
+	</select>
+	<update id="updateJoinCnt" parameterType="hashmap">
+		update emp_chat set isjoin=#{joincnt} where no=#{chatno} and employeenum=#{employeenum}
+	</update>
+	<select id="noticeBoardCnt" resultType="int">
+		select count(*) from emp_noticeboard
+	</select>
+	<select id="findAllNotice" parameterType="hashmap" resultType="noticeDTO">
+		<![CDATA[
+			select * from 
+	         (select notice.*, rownum r from 
+	         (select * from emp_noticeboard order by reg desc) notice) 
+         	where r >= #{start} and r <= #{end}
+		]]>
+	</select>
+	<select id="findNoticeContent" parameterType="hashmap" resultType="noticeDTO">
+		select * from emp_noticeboard where no=#{no}
+	</select>
+	<update id="readCntUp" parameterType="hashmap">
+		update emp_noticeboard set readcnt=readcnt+1 where no=#{no}
+	</update>
+	<insert id="insertNotice" parameterType="noticeDTO">
+		insert into emp_noticeboard(no, title, writer, content, reg) 
+		values(emp_noticeboard_seq.nextval, #{title}, #{writer}, #{content}, sysdate)
+	</insert>
+	<update id="updateNotice" parameterType="noticeDTO">
+		update emp_noticeboard set title=#{title}, content=#{content} where no=#{no}
+	</update>
+	<delete id="deleteNotice" parameterType="noticeDTO">
+		delete from emp_noticeboard where no=#{no}
+	</delete>
+</mapper>

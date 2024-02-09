@@ -4,5 +4,14 @@
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
   	<typeAliases>
+  		<typeAlias type="com.injoit.mvc.bean.EmployeeDTO" alias="employee"/>
+  		<typeAlias type="com.injoit.mvc.bean.EmpAttendanceDTO" alias="empAttendance"/>
+  		<typeAlias type="com.injoit.mvc.bean.AuthDTO" alias="emp_auth"/>
+  		<typeAlias type="com.injoit.mvc.bean.CalendarDTO" alias="calendar"/>
+  		<typeAlias type="com.injoit.mvc.bean.Vote_queDTO" alias="vote_que"/>
+  		<typeAlias type="com.injoit.mvc.bean.Vote_countDTO" alias="vote_count"/>
+  		<typeAlias type="com.injoit.mvc.bean.ChatDTO" alias="chatDTO"/>
+  		<typeAlias type="com.injoit.mvc.bean.NoticeBoardDTO" alias="noticeDTO"/>
+  		<typeAlias type="com.injoit.mvc.bean.Emp_voteDTO" alias="emp_vote"/>
   	</typeAliases>
 </configuration>
